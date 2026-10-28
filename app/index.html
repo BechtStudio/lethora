@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
+    <title>Lethora</title>
+  </head>
+  <body>
+    <!-- The row's empty and non-interactive parts drag the window, a double-click maximizes (Tauri, "deep": the whole subtree; buttons and menus stay clickable). -->
+    <header id="bar" data-tauri-drag-region="deep">
+      <div class="bar-side bar-start">
+        <img class="bar-icon" src="/icon.png" alt="" width="16" height="16" />
+        <div id="menubar" class="menubar" role="menubar" aria-label="Menu" data-tauri-drag-region="false"></div>
+        <div class="bar-info">
+          <span id="project-name" class="bar-name"></span>
+          <button id="sync-cloud" type="button" class="bar-sync" hidden aria-label="Sync"></button>
+          <span id="read-only" class="bar-read-only" hidden></span>
+          <span id="suggesting" class="bar-read-only bar-suggesting" title="Suggest mode: your edits in the text become suggestions (Edit → Suggest changes)" hidden>Suggesting</span>
+          <span id="online" class="bar-online" role="img" hidden></span>
+          <span id="words" class="bar-words" aria-live="off"></span>
+          <span class="bar-status">
+            <span id="pub-status" class="publisher-only" aria-live="polite"></span>
+            <span id="status" role="status"></span>
+            <span id="error" role="alert" hidden>
+              <span id="error-text"></span>
+              <button id="error-dismiss" type="button" class="bar-dismiss" aria-label="Dismiss message" title="Dismiss">×</button>
+            </span>
+          </span>
+        </div>
+      </div>
+      <div class="bar-views" role="group" aria-label="View">
+        <button id="view-author" type="button" aria-pressed="true" title="Author view: writing (Ctrl+1)">Author</button>
+        <button id="view-science" type="button" aria-pressed="false" title="Science view: rendered formulas, palette (Ctrl+2)">Science</button>
+        <button id="view-publisher" type="button" aria-pressed="false" title="Publisher view: pages, layout, PDF export (Ctrl+3)">Publisher</button>
+      </div>
+      <div class="bar-side bar-end">
+        <div class="bar-tools">
+          <nav class="pub-tools publisher-only" aria-label="Page preview">
+            <span class="pub-zoom" role="group" aria-label="Zoom">
+              <button id="zoom-out" type="button" title="Zoom out (Ctrl+Minus, Ctrl+wheel)" aria-label="Zoom out">−</button>
+              <button id="zoom-fit" type="button" title="Fit the page width (Ctrl+0)"></button>
+              <button id="zoom-in" type="button" title="Zoom in (Ctrl+Plus, Ctrl+wheel)" aria-label="Zoom in">+</button>
+            </span>
+            <button id="compile" type="button" title="Typeset again, reading changed images and references.bib from disk (F5)">Compile</button>
+            <button id="export-pdf" type="button" title="Export the document as PDF (Ctrl+E)">Export<span class="bar-long"> PDF</span></button>
+          </nav>
+          <nav class="bar-toggles" aria-label="Tools">
+            <button id="toggle-palette" type="button" class="science-only" aria-pressed="false" aria-controls="palette" title="Formula palette (Ctrl+Shift+P)">Formulas</button>
+            <button id="insert-figure" type="button" class="science-only" title="Insert a figure from an image file (Ctrl+Shift+G)">Figure</button>
+            <button id="toggle-sources" type="button" class="science-only" aria-pressed="false" aria-controls="sources" title="Sources: search, cite, import (Ctrl+Shift+B)">Sources</button>
+            <button id="toggle-pages" type="button" aria-pressed="false" aria-controls="publisher" title="Page preview beside the text (F6)">Pages</button>
+            <button id="toggle-review" type="button" aria-pressed="false" aria-controls="review" title="Review: comments and highlights beside the text">Review</button>
+          </nav>
+          <button id="toggle-assets" type="button" class="bar-assets" aria-pressed="false" aria-controls="assets" title="Assets: the project's images and other files (F8)">Assets</button>
+        </div>
+        <!-- Minimize, maximize and close (Windows and Linux; chrome.ts). -->
+        <div id="window-buttons" class="bar-window" role="group" aria-label="Window"></div>
+      </div>
+    </header>
+
+    <!-- Formatting (author and science views): buttons keep the editor's focus and selection (main.ts). -->
+    <nav id="format-bar" aria-label="Format">
+      <select id="fmt-heading" aria-label="Paragraph style" title="Paragraph or heading">
+        <option value="0">Paragraph</option>
+        <option value="1">Heading 1</option>
+        <option value="2">Heading 2</option>
+        <option value="3">Heading 3</option>
+        <option value="4">Heading 4</option>
+        <option value="5">Heading 5</option>
+        <option value="6">Heading 6</option>
+      </select>
+      <!-- Character style, font and size: comboboxes (fontpicker.ts); a pick returns the focus to the editor. -->
+      <span class="fmt-group fmt-text" role="group" aria-label="Font">
+        <input id="fmt-style" type="text" aria-label="Character style" title="Character style" />
+        <input id="fmt-font" type="text" aria-label="Font" title="Font (no selection: the whole document's)" />
+        <input id="fmt-size" type="text" inputmode="decimal" aria-label="Font size in points" title="Font size in points (no selection: the whole document's)" />
+      </span>
+      <span class="fmt-group" role="group" aria-label="Characters">
+        <button type="button" data-command="bold" aria-pressed="false" aria-label="Bold" title="Bold (Ctrl+B)"><b>B</b></button>
+        <button type="button" data-command="italic" aria-pressed="false" aria-label="Italic" title="Italic (Ctrl+I)"><i>I</i></button>
+        <button type="button" data-command="underline" aria-pressed="false" aria-label="Underline" title="Underline (Ctrl+U)"><u>U</u></button>
+        <button type="button" data-command="strike" aria-pressed="false" aria-label="Strikethrough" title="Strikethrough"><s>S</s></button>
+        <button type="button" data-command="super" aria-pressed="false" aria-label="Superscript" title="Superscript">x²</button>
+        <button type="button" data-command="sub" aria-pressed="false" aria-label="Subscript" title="Subscript">x₂</button>
+      </span>
+      <span class="fmt-group" role="group" aria-label="Lists">
+        <button type="button" data-command="bullets" aria-pressed="false" aria-label="Bulleted list" title="Bulleted list">
+          <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><g fill="currentColor"><circle cx="2.5" cy="4" r="1.3" /><circle cx="2.5" cy="8" r="1.3" /><circle cx="2.5" cy="12" r="1.3" /></g><path d="M6 4h8.5M6 8h8.5M6 12h8.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" /></svg>
+        </button>
+        <button type="button" data-command="numbering" aria-pressed="false" aria-label="Numbered list" title="Numbered list">
+          <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><g fill="currentColor" font-size="5.5" font-family="system-ui, sans-serif" font-weight="600"><text x="0.6" y="6">1</text><text x="0.6" y="10">2</text><text x="0.6" y="14">3</text></g><path d="M6 4h8.5M6 8h8.5M6 12h8.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" /></svg>
+        </button>
+      </span>
+      <span class="fmt-group" role="group" aria-label="Insert">
+        <!-- Opens the grid picker (tables.ts); not a toggle. -->
+        <button type="button" data-command="table" aria-haspopup="dialog" aria-label="Insert table" title="Insert table">
+          <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.3"><rect x="1.5" y="2.5" width="13" height="11" rx="1" /><path d="M1.5 6.2h13M1.5 9.9h13M5.8 2.5v11M10.2 2.5v11" /></g></svg>
+        </button>
+        <!-- The table commands (tables.ts), while the cursor is in a table; the editor's right-click menu has them too. -->
+        <button type="button" class="fmt-table-menu" data-command="table-menu" aria-haspopup="menu" title="Rows, columns, header, merged cells (also on right-click)" hidden>Table ▾</button>
+      </span>
+    </nav>
+
+    <main id="editor" hidden>
+      <!-- View → Show authors (authors.ts): who wrote the visible text, in their colours. -->
+      <div id="authors-legend" class="authors-legend" role="note" aria-label="Authors" hidden></div>
+    </main>
+
+    <section id="publisher" hidden aria-label="Publisher">
+      <div id="split-handle" role="separator" aria-orientation="vertical" aria-label="Resize the page preview" aria-controls="publisher" aria-valuemin="0" aria-valuemax="100" tabindex="0"></div>
+      <div class="pub-main">
+        <nav class="pub-tools pane-head" aria-label="Page preview tools">
+          <span class="pub-zoom" role="group" aria-label="Zoom">
+            <button id="pane-zoom-out" type="button" title="Zoom out (Ctrl+Minus, Ctrl+wheel)" aria-label="Zoom out">−</button>
+            <button id="pane-zoom-fit" type="button" title="Fit the page width (Ctrl+0)"></button>
+            <button id="pane-zoom-in" type="button" title="Zoom in (Ctrl+Plus, Ctrl+wheel)" aria-label="Zoom in">+</button>
+          </span>
+          <button id="pane-markers" type="button" aria-pressed="true" title="Show where the exceptions are on the pages">Markers</button>
+          <button id="pane-exceptions" type="button" aria-pressed="false" title="List, filter and edit the exceptions (F7)">Exceptions</button>
+          <span id="pane-status" aria-live="polite"></span>
+          <button id="pane-close" type="button" title="Close the page preview (F6)" aria-label="Close the page preview">×</button>
+        </nav>
+        <div id="pub-scroll" tabindex="0" aria-label="Page preview">
+          <div id="pub-sizer"></div>
+          <p id="pub-placeholder">Typesetting…</p>
+        </div>
+        <details id="pub-diags" hidden>
+          <summary id="pub-diags-summary"></summary>
+          <ul id="pub-diags-list" aria-label="Problems"></ul>
+        </details>
+      </div>
+      <aside id="layout-panel" aria-label="Layout"></aside>
+    </section>
+
+    <section id="assets" hidden aria-label="Assets"></section>
+
+    <section id="preview" hidden aria-label="Checkpoint preview">
+      <div class="preview-banner">
+        <span id="preview-title"></span>
+        <span class="preview-actions">
+          <button id="preview-restore" type="button" class="primary" title="Replace the current text with this version (undoable)">Restore this version</button>
+          <button id="preview-close" type="button" title="Close the preview (Esc)">Close</button>
+        </span>
+      </div>
+      <div id="preview-doc"></div>
+    </section>
+
+    <!-- View → Review (reviewpanel.ts): cards beside their lines in the author and science views. -->
+    <aside id="review" hidden aria-label="Review"></aside>
+
+    <aside id="palette" hidden aria-label="Formula palette"></aside>
+
+    <aside id="panel" hidden aria-label="Checkpoints">
+      <form id="cp-form">
+        <input id="cp-name" type="text" placeholder="Name this version…" aria-label="Checkpoint name" autocomplete="off" spellcheck="false" />
+        <button type="submit" title="Create a checkpoint of the current text (Enter)">Create</button>
+      </form>
+      <ol id="cp-list" aria-label="Checkpoints, newest first"></ol>
+    </aside>
+
+    <aside id="sources" class="drawer" hidden aria-label="Sources">
+      <div class="src-head">
+        <input id="src-search" type="search" placeholder="Search sources…" aria-label="Search sources by key, title, author or year" autocomplete="off" spellcheck="false" />
+        <select id="src-style" aria-label="Citation style" title="Citation style for formatted references"></select>
+      </div>
+      <div id="src-problems" class="src-problems" hidden>
+        <details>
+          <summary id="src-problems-summary"></summary>
+          <ul id="src-problems-list"></ul>
+        </details>
+      </div>
+      <div class="src-actions">
+        <button id="src-import" type="button" title="Merge a .bib file into references.bib (existing keys are kept)">Import .bib…</button>
+        <button id="src-paste-toggle" type="button" aria-expanded="false" aria-controls="src-paste">Paste BibTeX</button>
+        <button id="src-add-toggle" type="button" aria-expanded="false" aria-controls="src-add">Add source</button>
+      </div>
+      <form id="src-paste" class="src-form" hidden>
+        <textarea id="src-paste-text" rows="7" placeholder="@article{key,&#10;  author = {Last, First},&#10;  title = {…},&#10;}" aria-label="BibTeX to import" spellcheck="false"></textarea>
+        <div class="src-form-actions">
+          <button type="submit" class="primary">Import</button>
+          <button type="button" data-cancel>Cancel</button>
+        </div>
+      </form>
+      <form id="src-add" class="src-form" hidden novalidate>
+        <label><span>Type</span>
+          <select id="src-type">
+            <option value="article">Article</option>
+            <option value="book">Book</option>
+            <option value="inproceedings">Conference paper</option>
+            <option value="online">Web page</option>
+            <option value="misc">Other</option>
+          </select>
+        </label>
+        <label><span>Authors</span><textarea id="src-authors" rows="2" placeholder="Last, First (one per line)" spellcheck="false"></textarea></label>
+        <label><span>Title</span><input id="src-title" type="text" autocomplete="off" /></label>
+        <label><span>Year</span><input id="src-year" type="text" inputmode="numeric" autocomplete="off" /></label>
+        <label id="src-container-row"><span id="src-container-label">Journal</span><input id="src-container" type="text" autocomplete="off" /></label>
+        <label><span>DOI</span><input id="src-doi" type="text" autocomplete="off" spellcheck="false" placeholder="10.1000/xyz" /></label>
+        <label><span>URL</span><input id="src-url" type="url" autocomplete="off" spellcheck="false" /></label>
+        <label><span>Key</span><input id="src-key" type="text" autocomplete="off" spellcheck="false" class="mono" /></label>
+        <div class="src-form-actions">
+          <button type="submit" class="primary">Add</button>
+          <button type="button" data-cancel>Cancel</button>
+        </div>
+      </form>
+      <div id="src-report" class="src-report" role="status" hidden></div>
+      <ul id="src-list" aria-label="Sources (click to cite)"></ul>
+      <p id="src-count" class="src-count"></p>
+      <div id="src-preview" class="src-preview" aria-live="polite" hidden></div>
+    </aside>
+
+    <div id="empty" hidden>
+      <h1 class="wordmark">Lethora</h1>
+      <div class="empty-actions">
+        <button id="new" type="button" title="Create a new project (Ctrl+N)">New project</button>
+        <button id="open" type="button" title="Open an existing project (Ctrl+O)">Open project</button>
+        <button id="join" type="button" title="Open a project shared from another device, with its project code">Open shared project…</button>
+      </div>
+      <section id="recent" class="recent" hidden aria-labelledby="recent-heading">
+        <h2 id="recent-heading">Recent</h2>
+        <ul id="recent-list"></ul>
+      </section>
+    </div>
+
+    <div class="notices">
+      <div id="open-notice" class="sync-notice" role="status" hidden>
+        <span id="open-notice-text"></span>
+        <span class="sync-notice-actions">
+          <button id="open-notice-close" type="button" class="bar-dismiss" aria-label="Close this notice" title="Close">×</button>
+        </span>
+      </div>
+      <div id="sync-notice" class="sync-notice" role="status" hidden>
+        <span id="sync-notice-text"></span>
+        <span class="sync-notice-actions">
+          <button id="sync-notice-setup" type="button" class="primary">Set up encrypted sync…</button>
+          <button id="sync-notice-dismiss" type="button">Don't show again</button>
+          <button id="sync-notice-close" type="button" class="bar-dismiss" aria-label="Close this notice" title="Close">×</button>
+        </span>
+      </div>
+    </div>
+
+    <dialog id="damaged-dialog" aria-labelledby="damaged-heading">
+      <div id="damaged-body"></div>
+    </dialog>
+
+    <dialog id="sync-dialog" aria-labelledby="sd-heading">
+      <div id="sd-body"></div>
+    </dialog>
+
+    <dialog id="about-dialog" aria-labelledby="about-heading">
+      <div id="about-body"></div>
+    </dialog>
+
+    <dialog id="update-dialog" aria-labelledby="update-heading">
+      <div id="update-body"></div>
+    </dialog>
+
+    <dialog id="settings-dialog" aria-labelledby="settings-heading"></dialog>
+
+    <dialog id="new-project" aria-labelledby="np-heading">
+      <form id="np-form" method="dialog">
+        <h2 id="np-heading">New project</h2>
+        <label class="np-field"><span>Name</span><input id="np-name" type="text" autocomplete="off" required /></label>
+        <p class="np-path np-where"><span id="np-path"></span> <button type="button" id="np-location" class="np-link">Choose location…</button></p>
+        <fieldset class="np-presets">
+          <legend>Start from</legend>
+          <div id="np-preset-list" class="np-cards"></div>
+        </fieldset>
+        <label class="np-field"><span>Title</span><input id="np-title" type="text" autocomplete="off" placeholder="Optional" /></label>
+        <label class="np-field"><span>Author</span><input id="np-author" type="text" autocomplete="off" placeholder="Optional" /></label>
+        <div class="np-actions">
+          <button type="button" id="np-cancel">Cancel</button>
+          <button type="submit" id="np-create" class="primary">Create</button>
+        </div>
+      </form>
+    </dialog>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

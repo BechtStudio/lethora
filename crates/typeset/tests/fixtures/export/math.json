@@ -1,0 +1,66 @@
+{
+  "doc": {
+    "blocks": [
+      {
+        "para": [
+          {
+            "text": "Inline "
+          },
+          {
+            "math": {
+              "image": null,
+              "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><msup><mi>𝑎</mi><mn>2</mn></msup><mo>+</mo><msup><mi>𝑏</mi><mn>2</mn></msup><mo>=</mo><msup><mi>𝑐</mi><mn>2</mn></msup></math>",
+              "typst": "a^2 + b^2 = c^2"
+            }
+          },
+          {
+            "text": " and "
+          },
+          {
+            "math": {
+              "image": null,
+              "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mi>𝑥</mi><mo>&lt;</mo><mi>𝑦</mi></math>",
+              "typst": "x < y"
+            }
+          },
+          {
+            "text": "."
+          }
+        ]
+      },
+      {
+        "math": {
+          "label": "sum",
+          "math": {
+            "image": null,
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><munderover><mo lspace=\"0em\">∑</mo><mrow><mi>𝑘</mi><mo lspace=\"0em\" rspace=\"0em\">=</mo><mn>1</mn></mrow><mi>𝑛</mi></munderover><mi>𝑘</mi><mo>=</mo><mfrac><mrow><mi>𝑛</mi><mrow><mo>(</mo><mrow><mi>𝑛</mi><mo>+</mo><mn>1</mn></mrow><mo>)</mo></mrow></mrow><mn>2</mn></mfrac></math>",
+            "typst": "sum_(k=1)^n k = (n(n+1)) / 2"
+          },
+          "number": "(1)"
+        }
+      },
+      {
+        "math": {
+          "label": null,
+          "math": {
+            "image": null,
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mtable class=\"multiline-equation aligned\"><mtr><mtd><mi>𝑎</mi></mtd><mtd><mo form=\"infix\">=</mo><mi>𝑏</mi></mtd></mtr><mtr><mtd><mi>𝑐</mi></mtd><mtd><mo form=\"infix\">=</mo><mi>𝑑</mi></mtd></mtr></mtable></math>",
+            "typst": "a &= b \\\n  c &= d"
+          },
+          "number": "(2)"
+        }
+      }
+    ],
+    "meta": {
+      "authors": [
+        "Ada Lovelace"
+      ],
+      "date": null,
+      "lang": "en",
+      "subtitle": null,
+      "title": "Export test"
+    },
+    "resources": []
+  },
+  "warnings": []
+}

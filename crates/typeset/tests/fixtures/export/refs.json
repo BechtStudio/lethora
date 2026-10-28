@@ -1,0 +1,169 @@
+{
+  "doc": {
+    "blocks": [
+      {
+        "heading": {
+          "content": [
+            {
+              "text": "1. Method"
+            }
+          ],
+          "label": "method",
+          "level": 1
+        }
+      },
+      {
+        "para": [
+          {
+            "text": "See "
+          },
+          {
+            "ref": {
+              "label": "method",
+              "text": [
+                {
+                  "text": "Section 1"
+                }
+              ]
+            }
+          },
+          {
+            "text": ", "
+          },
+          {
+            "ref": {
+              "label": "fig",
+              "text": [
+                {
+                  "text": "Figure 1"
+                }
+              ]
+            }
+          },
+          {
+            "text": ", "
+          },
+          {
+            "ref": {
+              "label": "tab",
+              "text": [
+                {
+                  "text": "Table 1"
+                }
+              ]
+            }
+          },
+          {
+            "text": " and "
+          },
+          {
+            "ref": {
+              "label": "euler",
+              "text": [
+                {
+                  "text": "Equation 1"
+                }
+              ]
+            }
+          },
+          {
+            "text": "."
+          }
+        ]
+      },
+      {
+        "math": {
+          "label": "euler",
+          "math": {
+            "image": null,
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><msup><mi>𝑒</mi><mrow><mi>𝑖</mi><mi>𝜋</mi></mrow></msup><mo>+</mo><mn>1</mn><mo>=</mo><mn>0</mn></math>",
+            "typst": "e^(i pi) + 1 = 0"
+          },
+          "number": "(1)"
+        }
+      },
+      {
+        "figure": {
+          "body": {
+            "image": {
+              "alt": null,
+              "resource": "plot.svg",
+              "width": 0.8
+            }
+          },
+          "caption": [
+            {
+              "text": "A plot."
+            }
+          ],
+          "label": "fig",
+          "number": "Figure 1"
+        }
+      },
+      {
+        "figure": {
+          "body": {
+            "table": {
+              "columns": 2,
+              "header_rows": 0,
+              "rows": [
+                [
+                  {
+                    "colspan": 1,
+                    "content": [
+                      {
+                        "para": [
+                          {
+                            "text": "a"
+                          }
+                        ]
+                      }
+                    ],
+                    "rowspan": 1
+                  },
+                  {
+                    "colspan": 1,
+                    "content": [
+                      {
+                        "para": [
+                          {
+                            "text": "b"
+                          }
+                        ]
+                      }
+                    ],
+                    "rowspan": 1
+                  }
+                ]
+              ]
+            }
+          },
+          "caption": [
+            {
+              "text": "A table."
+            }
+          ],
+          "label": "tab",
+          "number": "Table 1"
+        }
+      }
+    ],
+    "meta": {
+      "authors": [
+        "Ada Lovelace"
+      ],
+      "date": null,
+      "lang": "en",
+      "subtitle": null,
+      "title": "Export test"
+    },
+    "resources": [
+      {
+        "bytes": "115 bytes",
+        "mime": "image/svg+xml",
+        "name": "plot.svg"
+      }
+    ]
+  },
+  "warnings": []
+}

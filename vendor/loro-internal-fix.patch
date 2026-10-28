@@ -1,0 +1,82 @@
+--- a/crates/loro-internal/src/container/richtext/tracker/crdt_rope.rs	2026-10-12 03:20:57.426547300 +0200
++++ b/crates/loro-internal/src/container/richtext/tracker/crdt_rope.rs	2026-10-12 03:45:44.935113100 +0200
+@@ -348,6 +348,22 @@
+         on_diff_status: bool,
+     ) -> Vec<LeafIndex> {
+         updates.sort_by_key(|x| x.leaf);
++        // A long span is retreated/forwarded one id_to_cursor fragment (<= 256 atoms) at a
++        // time. Coalesce contiguous updates with the same effect on the same leaf, so the
++        // leaf is not split into one piece per fragment (and merged back) every time.
++        updates.dedup_by(|next, prev| {
++            let mergeable = next.leaf == prev.leaf
++                && next.set_future == prev.set_future
++                && next.delete_times_diff == prev.delete_times_diff
++                && next.id_span.peer == prev.id_span.peer
++                && prev.id_span.counter.start < prev.id_span.counter.end
++                && next.id_span.counter.start < next.id_span.counter.end
++                && prev.id_span.counter.end == next.id_span.counter.start;
++            if mergeable {
++                prev.id_span.counter.end = next.id_span.counter.end;
++            }
++            mergeable
++        });
+         let mut tree_update_info = Vec::with_capacity(updates.len());
+         for (leaf, group) in &updates.into_iter().group_by(|x| x.leaf) {
+             let elem = self.tree.get_elem(leaf).unwrap();
+--- a/crates/loro-internal/src/container/richtext/tracker.rs	2026-10-12 03:20:57.425046900 +0200
++++ b/crates/loro-internal/src/container/richtext/tracker.rs	2026-10-12 03:47:16.568959200 +0200
+@@ -169,8 +169,14 @@
+                     .update_insert(leaf.id_span(), new_leaf_idx);
+             }
+             _ => {
++                // `split` can name the same leaf many times: when the pieces of a split
++                // element are merged back into it, every merge reports the original leaf.
++                // Updating the leaf's (whole) id span once per entry is quadratic.
++                let mut split = split.to_vec();
++                split.sort_unstable();
++                split.dedup();
+                 let mut updates = Vec::with_capacity(split.len());
+-                for &new_leaf_idx in split {
++                for &new_leaf_idx in &split {
+                     let leaf = self.rope.tree().get_elem(new_leaf_idx).unwrap();
+                     updates.push((leaf.id_span(), new_leaf_idx));
+                 }
+@@ -775,6 +781,38 @@
+     }
+ 
+     #[test]
++    fn checkout_across_one_long_insert_span() {
++        // One contiguous insert span is stored as many MAX_FRAGMENT_LEN fragments in
++        // id_to_cursor, so retreating/forwarding it yields one rope update per fragment.
++        const N: u32 = 64 * 1024;
++        let mut t = Tracker::new();
++        t.insert(IdFull::new(1, 0, 0), 0, RichtextChunk::new_text(0..18));
++        t.insert(IdFull::new(1, 18, 18), 18, RichtextChunk::new_text(18..18 + N));
++        let start = Instant::now();
++        t.checkout(&vv!(1 => 18));
++        t.check();
++        assert_eq!(t.len(), 18);
++        t.checkout(&vv!(1 => 18 + N as Counter));
++        t.check();
++        assert_eq!(t.len(), 18 + N as usize);
++        let diff_items = t.diff(&vv!(1 => 18 + N as Counter), &vv!(1 => 18)).count();
++        assert!(diff_items > 0);
++        println!("checkout_across_one_long_insert_span: {:?}", start.elapsed());
++    }
++
++    #[test]
++    fn update_insert_by_split_with_repeated_leaf() {
++        // When the pieces of a split leaf merge back, the same leaf index is reported
++        // once per piece. Each repeat must not rescan the whole span.
++        let mut t = Tracker::new();
++        t.insert(IdFull::new(1, 0, 0), 0, RichtextChunk::new_text(0..64 * 1024));
++        let leaf = t.id_to_cursor.get_insert(ID::new(1, 0)).unwrap();
++        t.update_insert_by_split(&vec![leaf; 256]);
++        t.check();
++        assert_eq!(t.id_to_cursor.get_insert(ID::new(1, 64 * 1024 - 1)), Some(leaf));
++    }
++
++    #[test]
+     #[ignore]
+     fn perf_update_insert_by_split_quadratic() {
+         // Run with:

@@ -1,0 +1,29 @@
+[package]
+name = "lethora-server"
+version.workspace = true
+license = "AGPL-3.0-or-later"
+edition = "2024"
+publish = false
+
+[dependencies]
+# Members log, envelopes and wire messages; no Loro, no lethora-core.
+lethora-protocol = { path = "../protocol" }
+# HTTP and WebSocket; HTTP/1 only (a reverse proxy terminates TLS and h2),
+# `query` for the snapshot PUT's `covers`.
+axum = { version = "0.8", default-features = false, features = ["http1", "tokio", "ws", "query"] }
+serde = { version = "1", features = ["derive"] }
+# meta.json and small JSON answers.
+serde_json = "1"
+tokio = { version = "1.53", features = ["rt-multi-thread", "net", "sync", "time", "macros", "signal"] }
+# lethora-server.toml; the 1.x version already in Cargo.lock.
+toml = "1"
+tracing = "0.1"
+# Log output for the binary, filtered by RUST_LOG.
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+
+[dev-dependencies]
+# Stream and Sink helpers for the test client's WebSocket; in Cargo.lock.
+futures-util = { version = "0.3", default-features = false, features = ["sink"] }
+tempfile = "3"
+# The test client's WebSocket; the version axum uses.
+tokio-tungstenite = "0.29"

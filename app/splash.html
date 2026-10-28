@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
+    <title>Lethora</title>
+  </head>
+  <body>
+    <!-- The startup window: main.ts reports progress and closes it when the app is ready (startup.ts). The window can be dragged. -->
+    <div id="splash" role="progressbar" aria-label="Starting Lethora" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" data-tauri-drag-region>
+      <div class="splash-art"></div>
+      <div class="splash-bar"><div id="splash-bar"></div></div>
+      <div class="splash-foot">
+        <img src="/icon.png" alt="" width="40" height="40" />
+        <div class="splash-name">Lethora</div>
+        <div class="splash-tagline">Write the science. Let the layout follow.</div>
+        <div id="splash-status" class="splash-status" aria-live="polite">Starting…</div>
+        <div id="splash-version" class="splash-version"></div>
+        <div class="splash-copyright">© 2026 BechtStudio. All rights reserved.</div>
+      </div>
+    </div>
+    <script type="module" src="/src/splash.ts"></script>
+  </body>
+</html>

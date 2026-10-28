@@ -1,0 +1,258 @@
+# A `v*` tag builds Lethora for Windows, macOS and Linux into one draft
+# GitHub Release; publishing it stays a hand step. Then every release file
+# is hashed into SHA256SUMS.txt and, in a public repository, attested
+# (which commit and workflow run built it).
+
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+
+# Two runs for the same tag would race on the same release.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  draft:
+    name: Draft release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    outputs:
+      release-id: ${{ steps.release.outputs.id }}
+      notes: ${{ steps.notes.outputs.notes }}
+    steps:
+      - uses: actions/checkout@v7
+
+      # Edition 2024 needs a recent cargo for `cargo metadata`.
+      - uses: dtolnay/rust-toolchain@stable
+
+      # Tauri takes the bundle version from the app crate (tauri.conf.json
+      # has none), which inherits `[workspace.package] version`;
+      # app/package.json must not drift from it.
+      - name: Tag matches the app version
+        run: |
+          tag="${GITHUB_REF_NAME#v}"
+          cargo_version="$(cargo metadata --no-deps --format-version 1 \
+            | node -p 'JSON.parse(require("fs").readFileSync(0)).packages.find(p => p.name === "lethora-app").version')"
+          npm_version="$(node -p 'require("./app/package.json").version')"
+          echo "tag $tag, Cargo $cargo_version, app/package.json $npm_version"
+          if [ "$tag" != "$cargo_version" ] || [ "$tag" != "$npm_version" ]; then
+            echo "::error::Tag $GITHUB_REF_NAME doesn't match the app version (Cargo.toml $cargo_version, app/package.json $npm_version)."
+            exit 1
+          fi
+
+      # The release text is the version's CHANGELOG section, if it has one.
+      # Also the update dialog's notes (latest.json, see the build).
+      - name: Release notes
+        id: notes
+        run: |
+          version="${GITHUB_REF_NAME#v}"
+          awk -v head="## [$version]" '
+            /^## \[/ { if (found) exit; found = index($0, head) == 1; next }
+            found
+          ' CHANGELOG.md > notes.md
+          if ! grep -q '[^[:space:]]' notes.md; then
+            echo "See [CHANGELOG.md](https://github.com/$GITHUB_REPOSITORY/blob/$GITHUB_REF_NAME/CHANGELOG.md)." > notes.md
+          fi
+          cat notes.md
+          { echo "notes<<__END__"; cat notes.md; echo "__END__"; } >> "$GITHUB_OUTPUT"
+
+      # One draft for all build jobs (each creating its own would race).
+      # A re-run of the whole workflow reuses the tag's draft.
+      - name: Create the draft release
+        id: release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          id="$(gh api "repos/$GITHUB_REPOSITORY/releases" \
+            --jq "map(select(.draft and .tag_name == \"$GITHUB_REF_NAME\"))[0].id // empty")"
+          if [ -z "$id" ]; then
+            id="$(gh api -X POST "repos/$GITHUB_REPOSITORY/releases" \
+              -f tag_name="$GITHUB_REF_NAME" -f name="$GITHUB_REF_NAME" \
+              -F draft=true -F body=@notes.md --jq .id)"
+          fi
+          echo "id=$id" >> "$GITHUB_OUTPUT"
+
+  build:
+    name: ${{ matrix.name }}
+    needs: draft
+    permissions:
+      contents: write
+    strategy:
+      # Let the other systems finish; a failed one can be re-run alone.
+      fail-fast: false
+      matrix:
+        include:
+          # NSIS only (bundle.targets): a per-user install, no admin.
+          - name: Windows x64
+            os: windows-latest
+            target: ""
+          # Two DMGs instead of one universal: half the download each.
+          # macos-latest is Apple Silicon; the Intel build cross-compiles.
+          - name: macOS Apple Silicon
+            os: macos-latest
+            target: aarch64-apple-darwin
+          - name: macOS Intel
+            os: macos-latest
+            target: x86_64-apple-darwin
+          # Ubuntu 22.04: the oldest glibc, so the AppImage and .deb run on
+          # the most systems.
+          - name: Linux x64
+            os: ubuntu-22.04
+            target: ""
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.target }}
+
+      # No Rust cache: CI caches debug builds, which a release build can't
+      # use, and a release built from scratch can't pick up a stale cache.
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: app/package-lock.json
+
+      # The packages of scripts/setup-linux.sh, plus patchelf and xdg-utils
+      # for the AppImage (as in Tauri's GitHub Actions guide).
+      - name: Linux system packages
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            build-essential pkg-config curl wget file \
+            libwebkit2gtk-4.1-dev libxdo-dev libssl-dev \
+            libayatana-appindicator3-dev librsvg2-dev \
+            patchelf xdg-utils
+
+      # Signing hook, a no-op while the secrets are missing (1.0 ships
+      # unsigned; the app is then ad-hoc signed, bundle.macOS.signingIdentity
+      # "-"). Tauri treats an empty variable as set (an empty certificate or
+      # identity breaks the build), so only the secrets that exist are passed
+      # on. APPLE_CERTIFICATE (base64 .p12) needs APPLE_CERTIFICATE_PASSWORD
+      # and APPLE_SIGNING_IDENTITY ("Developer ID Application: ..."); the
+      # notarization key is APPLE_API_KEY (key id), APPLE_API_ISSUER and
+      # APPLE_API_PRIVATE_KEY (the .p8 file's text).
+      - name: macOS signing secrets
+        if: runner.os == 'macOS'
+        env:
+          APPLE_CERTIFICATE: ${{ secrets.APPLE_CERTIFICATE }}
+          APPLE_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
+          APPLE_SIGNING_IDENTITY: ${{ secrets.APPLE_SIGNING_IDENTITY }}
+          APPLE_API_KEY: ${{ secrets.APPLE_API_KEY }}
+          APPLE_API_ISSUER: ${{ secrets.APPLE_API_ISSUER }}
+          APPLE_API_PRIVATE_KEY: ${{ secrets.APPLE_API_PRIVATE_KEY }}
+        run: |
+          for name in APPLE_CERTIFICATE APPLE_CERTIFICATE_PASSWORD \
+                      APPLE_SIGNING_IDENTITY APPLE_API_KEY APPLE_API_ISSUER; do
+            if [ -n "${!name}" ]; then
+              { echo "$name<<__END__"; echo "${!name}"; echo "__END__"; } >> "$GITHUB_ENV"
+            fi
+          done
+          if [ -n "$APPLE_API_PRIVATE_KEY" ]; then
+            key="$RUNNER_TEMP/AuthKey_$APPLE_API_KEY.p8"
+            printf '%s\n' "$APPLE_API_PRIVATE_KEY" > "$key"
+            echo "APPLE_API_KEY_PATH=$key" >> "$GITHUB_ENV"
+          fi
+
+      - run: npm --prefix app ci
+
+      # Both hooks below are no-ops while their secrets are missing, and reach
+      # the build as one --config override (tauri-action reads only the
+      # first), so a local `tauri build` stays unsigned and needs no key.
+      # - Windows signing: with WINDOWS_SIGN_COMMAND (Tauri's
+      #   bundle.windows.signCommand, `%1` is the file). Later: Azure Artifact
+      #   Signing or SignPath Foundation.
+      # - The updater: with TAURI_SIGNING_PRIVATE_KEY (the minisign key whose
+      #   public half is in tauri.conf.json; TAURI_SIGNING_PRIVATE_KEY_PASSWORD
+      #   if it has one) the build signs its updater files
+      #   (createUpdaterArtifacts) and tauri-action adds latest.json to the
+      #   release. Without it the release offers no update. Only the variables
+      #   that are set are passed on (Tauri treats an empty one as set), after
+      #   `npm ci`, so no install script sees the key.
+      - name: Signing hooks
+        id: hooks
+        shell: bash
+        env:
+          WINDOWS_SIGN_COMMAND: ${{ runner.os == 'Windows' && secrets.WINDOWS_SIGN_COMMAND || '' }}
+          UPDATER_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
+          UPDATER_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
+        run: |
+          if [ -n "$UPDATER_KEY" ]; then
+            { echo "TAURI_SIGNING_PRIVATE_KEY<<__END__"; echo "$UPDATER_KEY"; echo "__END__"; } >> "$GITHUB_ENV"
+            if [ -n "$UPDATER_KEY_PASSWORD" ]; then
+              { echo "TAURI_SIGNING_PRIVATE_KEY_PASSWORD<<__END__"; echo "$UPDATER_KEY_PASSWORD"; echo "__END__"; } >> "$GITHUB_ENV"
+            fi
+            echo "updater=true" >> "$GITHUB_OUTPUT"
+          fi
+          config="$(node -p '
+            const bundle = {};
+            if (process.env.WINDOWS_SIGN_COMMAND) bundle.windows = {signCommand: process.env.WINDOWS_SIGN_COMMAND};
+            if (process.env.UPDATER_KEY) bundle.createUpdaterArtifacts = true;
+            Object.keys(bundle).length ? JSON.stringify({bundle}) : ""')"
+          if [ -n "$config" ]; then
+            file="$RUNNER_TEMP/tauri-hooks.json"
+            if [ "$RUNNER_OS" = Windows ]; then file="$(cygpath -m "$file")"; fi
+            printf '%s' "$config" > "$file"
+            echo "args=--config $file" >> "$GITHUB_OUTPUT"
+          fi
+
+      # Builds (beforeBuildCommand builds the web view) and uploads the
+      # bundles to the draft under Tauri's names, which carry the arch:
+      # Lethora_<version>_x64-setup.exe, _aarch64.dmg, _x64.dmg,
+      # _amd64.AppImage, _amd64.deb.
+      - uses: tauri-apps/tauri-action@v1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          projectPath: app
+          releaseId: ${{ needs.draft.outputs.release-id }}
+          # With releaseId this only fills latest.json's notes.
+          releaseBody: ${{ needs.draft.outputs.notes }}
+          args: ${{ matrix.target && format('--target {0}', matrix.target) || '' }} ${{ steps.hooks.outputs.args }}
+          # latest.json (the updater's endpoint), each build adding its
+          # platforms: only with the updater key.
+          uploadUpdaterJson: ${{ steps.hooks.outputs.updater == 'true' }}
+
+  checksums:
+    name: Checksums and provenance
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      # For the attestation.
+      id-token: write
+      attestations: write
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+    steps:
+      # Hashes exactly what the release offers, as uploaded.
+      - name: SHA256SUMS.txt
+        run: |
+          gh release download "$GITHUB_REF_NAME" --dir assets
+          rm -f assets/SHA256SUMS.txt
+          (cd assets && LC_ALL=C sha256sum -- *) > SHA256SUMS.txt
+          cat SHA256SUMS.txt
+          gh release upload "$GITHUB_REF_NAME" SHA256SUMS.txt --clobber
+
+      # Checked with `gh attestation verify <file> --repo BechtStudio/lethora`.
+      # Artifact attestations need a public repository (private ones only on
+      # GitHub Enterprise Cloud), so a private test tag skips this.
+      - name: Build provenance
+        if: github.event.repository.visibility == 'public'
+        uses: actions/attest-build-provenance@v4
+        with:
+          subject-checksums: SHA256SUMS.txt

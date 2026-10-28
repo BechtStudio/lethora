@@ -1,0 +1,175 @@
+{
+  "doc": {
+    "blocks": [
+      {
+        "figure": {
+          "body": {
+            "image": {
+              "alt": "A red square",
+              "resource": "red.png",
+              "width": 0.5
+            }
+          },
+          "caption": [
+            {
+              "text": "A "
+            },
+            {
+              "emph": [
+                {
+                  "text": "red"
+                }
+              ]
+            },
+            {
+              "text": " square."
+            }
+          ],
+          "label": "red",
+          "number": "Figure 1"
+        }
+      },
+      {
+        "figure": {
+          "body": {
+            "table": {
+              "columns": 2,
+              "header_rows": 1,
+              "rows": [
+                [
+                  {
+                    "colspan": 1,
+                    "content": [
+                      {
+                        "para": [
+                          {
+                            "text": "Name"
+                          }
+                        ]
+                      }
+                    ],
+                    "rowspan": 1
+                  },
+                  {
+                    "colspan": 1,
+                    "content": [
+                      {
+                        "para": [
+                          {
+                            "text": "Value"
+                          }
+                        ]
+                      }
+                    ],
+                    "rowspan": 1
+                  }
+                ],
+                [
+                  {
+                    "colspan": 1,
+                    "content": [
+                      {
+                        "para": [
+                          {
+                            "text": "a"
+                          }
+                        ]
+                      }
+                    ],
+                    "rowspan": 1
+                  },
+                  {
+                    "colspan": 1,
+                    "content": [
+                      {
+                        "para": [
+                          {
+                            "text": "1"
+                          }
+                        ]
+                      }
+                    ],
+                    "rowspan": 1
+                  }
+                ]
+              ]
+            }
+          },
+          "caption": [
+            {
+              "text": "Values."
+            }
+          ],
+          "label": null,
+          "number": "Table 1"
+        }
+      },
+      {
+        "figure": {
+          "body": {
+            "image": {
+              "alt": null,
+              "resource": "plot.svg",
+              "width": 0.3
+            }
+          },
+          "caption": [],
+          "label": null,
+          "number": null
+        }
+      },
+      {
+        "para": [
+          {
+            "text": "An inline "
+          },
+          {
+            "image": {
+              "alt": null,
+              "resource": "red.png",
+              "width": null
+            }
+          },
+          {
+            "text": " icon."
+          }
+        ]
+      },
+      {
+        "code": {
+          "lang": "py",
+          "text": "print(1)"
+        }
+      },
+      {
+        "para": [
+          {
+            "text": "Listing 1: Code."
+          }
+        ]
+      }
+    ],
+    "meta": {
+      "authors": [
+        "Ada Lovelace"
+      ],
+      "date": null,
+      "lang": "en",
+      "subtitle": null,
+      "title": "Export test"
+    },
+    "resources": [
+      {
+        "bytes": "76 bytes",
+        "mime": "image/png",
+        "name": "red.png"
+      },
+      {
+        "bytes": "115 bytes",
+        "mime": "image/svg+xml",
+        "name": "plot.svg"
+      }
+    ]
+  },
+  "warnings": []
+}

@@ -1,0 +1,10 @@
+[package]
+name = "lethora-spell"
+version.workspace = true
+license.workspace = true
+edition = "2024"
+publish = false
+
+[dependencies]
+# Hunspell-compatible checker in pure Rust (no C library to build or ship).
+spellbook = "0.4"

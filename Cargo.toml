@@ -1,0 +1,19 @@
+[workspace]
+resolver = "3"
+members = ["crates/*", "app/src-tauri"]
+exclude = ["vendor"]
+
+# The one version of Lethora (app, server and crates); Tauri takes the app's
+# from here too. SemVer, for people and bug reports, never for
+# compatibility (see `lethora_protocol`, "Versions").
+[workspace.package]
+version = "0.1.0"
+# GPL for the app and its crates; the server crate overrides it with AGPL.
+license = "GPL-3.0-or-later"
+
+# Patched loro-internal 1.16.2: fixes quadratic checkout/revert/undo across one
+# long insert span (see vendor/loro-internal-fix.patch). `loro` is pinned to
+# =1.16.2 in crates/core so an update can't silently drop this patch. Remove once
+# upstream ships the fix.
+[patch.crates-io]
+loro-internal = { path = "vendor/loro-internal" }

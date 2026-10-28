@@ -1,0 +1,11 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "macos",
+  "description": "Main window on macOS: the system menu bar built from the command list (creating, updating and releasing its items).",
+  "windows": ["main"],
+  "platforms": ["macOS"],
+  "permissions": [
+    "core:menu:default",
+    "core:resources:allow-close"
+  ]
+}

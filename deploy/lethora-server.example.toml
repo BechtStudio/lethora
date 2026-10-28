@@ -1,0 +1,55 @@
+# lethora-server.toml: every setting with its default value, except
+# public_url (see docs/dev/server.md). A missing file or key means the default.
+# Each key can also be set by an environment variable LETHORA_<KEY>
+# (e.g. LETHORA_PUBLIC_URL, LETHORA_ASSET_BYTES), which wins over this file.
+# Sizes are in bytes, durations in seconds.
+
+# The address to listen on. The default serves this machine only (a reverse
+# proxy on the same host); 0.0.0.0:8740 listens on every interface.
+listen = "127.0.0.1:8740"
+
+# Where projects are stored (relative to the working directory).
+data_dir = "lethora-data"
+
+# The address the apps reach the server at: an origin, https://host[:port].
+# Signed in every hello and used in invite links, so it must be exactly what
+# people type in Share / Sync. Required unless listen is a loopback address
+# (then http://127.0.0.1:<port>). Plain http only for local network hosts.
+public_url = "https://sync.example.org"
+
+# Reverse proxies whose X-Forwarded-For header names the client, e.g.
+# ["127.0.0.1"]. In the environment a comma-separated list.
+trusted_proxies = []
+
+[limits]
+# Largest WebSocket message (4 MiB).
+message_bytes = 4194304
+# Largest snapshot or image upload (100 MiB); a reverse proxy must allow it.
+asset_bytes = 104857600
+# Storage per project (2 GiB).
+project_bytes = 2147483648
+# New projects per client IP address in 24 hours.
+projects_per_ip_per_day = 10
+# Open WebSocket connections per client IP address.
+connections_per_ip = 20
+# Messages a connection may send per second, and in a burst; more are read
+# later, not refused.
+messages_per_second = 50
+message_burst = 200
+# Bytes a connection may send per second (2 MiB), and in a burst (16 MiB,
+# at least message_bytes).
+bytes_per_second = 2097152
+byte_burst = 16777216
+# Presence messages per second a connection may send; more are dropped.
+presence_per_second = 20
+# Largest presence message (64 KiB).
+presence_bytes = 65536
+# Largest catch-up message (1 MiB, at most message_bytes / 2).
+chunk_bytes = 1048576
+# How long a client has to answer the challenge.
+hello_seconds = 10
+# A connection that sends nothing for this long is closed (the apps ping
+# every 30 s). A reverse proxy's read timeout should be longer.
+idle_seconds = 120
+# A project nobody has used for this long is unloaded from memory.
+unload_seconds = 300

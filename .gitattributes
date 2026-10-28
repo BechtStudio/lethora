@@ -1,0 +1,9 @@
+# Keep LF everywhere (Rust/TS sources, and the vendored patch must apply as-is).
+* text=auto eol=lf
+
+*.png binary
+*.ico binary
+*.icns binary
+
+# Import fixtures are byte-exact inputs (encodings, CRLF).
+crates/convert/tests/fixtures/** -text

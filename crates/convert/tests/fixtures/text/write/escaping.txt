@@ -1,0 +1,45 @@
+Odd "text" & <tags>
+Ada Lovelace
+Charles Babbage
+
+1. Not a list, - not one either; *stars*, _under_, snake_case, [brackets], <tag>, $5, `ticks`, back\slash, ~tilde~, {braces}, A & B, &amp; an entity, 50% | pipe.
+
+# not a heading
+- nor an item
+> nor a quote
+
+Say hi!a link (https://example.com/a b?q="x"&y=1) and https://typst.app and ada@example.com
+
+spaced and both, underlined, a`b, `x, updown
+
+- first list
+
+- second list
+
+9. nine
+   a second paragraph
+10. ten
+    > quoted in an item
+
+```
+fenced inside
+```
+
+A | B	C
+second header
+tall	one two	
+x y	- item
+
+Cited [@doe2020; @roe] and a reference to nowhere.[1]
+
+x < y \
+  & z
+
+* * *
+
+---
+
+[1] A note[2]
+
+    - with a list
+[2] in a note

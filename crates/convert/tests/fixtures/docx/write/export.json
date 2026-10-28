@@ -1,0 +1,1204 @@
+{
+  "meta": {
+    "title": "Export test",
+    "subtitle": "Every construct",
+    "authors": [
+      "Ada Lovelace"
+    ],
+    "date": "26 October 2026",
+    "lang": "en"
+  },
+  "blocks": [
+    {
+      "heading": {
+        "level": 1,
+        "content": [
+          {
+            "text": "1. Introduction"
+          }
+        ],
+        "label": "intro"
+      }
+    },
+    {
+      "para": [
+        {
+          "text": "Text with "
+        },
+        {
+          "strong": [
+            {
+              "text": "bold"
+            }
+          ]
+        },
+        {
+          "text": ", "
+        },
+        {
+          "emph": [
+            {
+              "text": "italic"
+            }
+          ]
+        },
+        {
+          "text": ", "
+        },
+        {
+          "underline": [
+            {
+              "text": "underlined"
+            }
+          ]
+        },
+        {
+          "text": ", "
+        },
+        {
+          "strike": [
+            {
+              "text": "struck"
+            }
+          ]
+        },
+        {
+          "text": ", H"
+        },
+        {
+          "sub": [
+            {
+              "text": "2"
+            }
+          ]
+        },
+        {
+          "text": "O, x"
+        },
+        {
+          "super": [
+            {
+              "text": "2"
+            }
+          ]
+        },
+        {
+          "text": ", Small Caps, "
+        },
+        {
+          "code": "code"
+        },
+        {
+          "text": " and "
+        },
+        {
+          "link": {
+            "url": "https://example.com",
+            "content": [
+              {
+                "text": "a link"
+              }
+            ]
+          }
+        },
+        {
+          "text": " and "
+        },
+        {
+          "link": {
+            "url": "https://typst.app",
+            "content": [
+              {
+                "text": "https://typst.app"
+              }
+            ]
+          }
+        },
+        {
+          "text": ". A forced"
+        },
+        "line_break",
+        {
+          "text": "line break, “quotes” and 5 < 6 & 7 > 3."
+        }
+      ]
+    },
+    {
+      "heading": {
+        "level": 2,
+        "content": [
+          {
+            "text": "1.1. Lists"
+          }
+        ],
+        "label": null
+      }
+    },
+    {
+      "list": {
+        "ordered": false,
+        "start": 1,
+        "items": [
+          [
+            {
+              "para": [
+                {
+                  "text": "one"
+                }
+              ]
+            }
+          ],
+          [
+            {
+              "para": [
+                {
+                  "text": "two"
+                }
+              ]
+            },
+            {
+              "list": {
+                "ordered": false,
+                "start": 1,
+                "items": [
+                  [
+                    {
+                      "para": [
+                        {
+                          "text": "nested"
+                        }
+                      ]
+                    }
+                  ]
+                ]
+              }
+            }
+          ]
+        ]
+      }
+    },
+    {
+      "list": {
+        "ordered": true,
+        "start": 1,
+        "items": [
+          [
+            {
+              "para": [
+                {
+                  "text": "first"
+                }
+              ]
+            }
+          ],
+          [
+            {
+              "para": [
+                {
+                  "text": "second"
+                }
+              ]
+            }
+          ]
+        ]
+      }
+    },
+    {
+      "list": {
+        "ordered": true,
+        "start": 4,
+        "items": [
+          [
+            {
+              "para": [
+                {
+                  "text": "four"
+                }
+              ]
+            }
+          ],
+          [
+            {
+              "para": [
+                {
+                  "text": "five"
+                }
+              ]
+            }
+          ]
+        ]
+      }
+    },
+    {
+      "para": [
+        {
+          "strong": [
+            {
+              "text": "Term"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "para": [
+        {
+          "text": "Its description."
+        }
+      ]
+    },
+    {
+      "quote": [
+        {
+          "para": [
+            {
+              "text": "A quotation."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": {
+        "lang": "rust",
+        "text": "fn main() {\n    println!(\"hi\");\n}"
+      }
+    },
+    {
+      "para": [
+        {
+          "text": "Styled text stays text."
+        }
+      ]
+    },
+    {
+      "heading": {
+        "level": 1,
+        "content": [
+          {
+            "text": "2. Method"
+          }
+        ],
+        "label": "method"
+      }
+    },
+    {
+      "para": [
+        {
+          "text": "See "
+        },
+        {
+          "ref": {
+            "label": "method",
+            "text": [
+              {
+                "text": "Section 2"
+              }
+            ]
+          }
+        },
+        {
+          "text": ", "
+        },
+        {
+          "ref": {
+            "label": "fig",
+            "text": [
+              {
+                "text": "Figure 1"
+              }
+            ]
+          }
+        },
+        {
+          "text": ", "
+        },
+        {
+          "ref": {
+            "label": "tab",
+            "text": [
+              {
+                "text": "Table 1"
+              }
+            ]
+          }
+        },
+        {
+          "text": " and "
+        },
+        {
+          "ref": {
+            "label": "euler",
+            "text": [
+              {
+                "text": "Equation 1"
+              }
+            ]
+          }
+        },
+        {
+          "text": "."
+        }
+      ]
+    },
+    {
+      "math": {
+        "math": {
+          "typst": "e^(i pi) + 1 = 0",
+          "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><msup><mi>𝑒</mi><mrow><mi>𝑖</mi><mi>𝜋</mi></mrow></msup><mo>+</mo><mn>1</mn><mo>=</mo><mn>0</mn></math>",
+          "image": null
+        },
+        "label": "euler",
+        "number": "(1)"
+      }
+    },
+    {
+      "figure": {
+        "body": {
+          "image": {
+            "resource": "plot.svg",
+            "alt": null,
+            "width": null
+          }
+        },
+        "caption": [
+          {
+            "text": "A plot."
+          }
+        ],
+        "label": "fig",
+        "number": "Figure 1"
+      }
+    },
+    {
+      "figure": {
+        "body": {
+          "table": {
+            "columns": 2,
+            "header_rows": 0,
+            "rows": [
+              [
+                {
+                  "content": [
+                    {
+                      "para": [
+                        {
+                          "text": "a"
+                        }
+                      ]
+                    }
+                  ],
+                  "colspan": 1,
+                  "rowspan": 1
+                },
+                {
+                  "content": [
+                    {
+                      "para": [
+                        {
+                          "text": "b"
+                        }
+                      ]
+                    }
+                  ],
+                  "colspan": 1,
+                  "rowspan": 1
+                }
+              ]
+            ]
+          }
+        },
+        "caption": [
+          {
+            "text": "A table."
+          }
+        ],
+        "label": "tab",
+        "number": "Table 1"
+      }
+    },
+    {
+      "para": [
+        {
+          "text": "As "
+        },
+        {
+          "cite": {
+            "items": [
+              {
+                "key": "knuth84",
+                "locator": null
+              }
+            ],
+            "text": [
+              {
+                "text": "(Knuth, 1984)"
+              }
+            ]
+          }
+        },
+        {
+          "text": " shows, and "
+        },
+        {
+          "cite": {
+            "items": [
+              {
+                "key": "doe2020",
+                "locator": "p. 4"
+              }
+            ],
+            "text": [
+              {
+                "text": "(Doe & Roe, 2020, p. 4)"
+              }
+            ]
+          }
+        },
+        {
+          "text": " agrees. Both at once: "
+        },
+        {
+          "cite": {
+            "items": [
+              {
+                "key": "knuth84",
+                "locator": null
+              },
+              {
+                "key": "doe2020",
+                "locator": null
+              }
+            ],
+            "text": [
+              {
+                "text": "(Doe & Roe, 2020; Knuth, 1984)"
+              }
+            ]
+          }
+        },
+        {
+          "text": "."
+        }
+      ]
+    },
+    {
+      "para": [
+        {
+          "text": "Text."
+        },
+        {
+          "footnote": [
+            {
+              "para": [
+                {
+                  "text": "A note with "
+                },
+                {
+                  "strong": [
+                    {
+                      "text": "bold"
+                    }
+                  ]
+                },
+                {
+                  "text": " and "
+                },
+                {
+                  "cite": {
+                    "items": [
+                      {
+                        "key": "knuth84",
+                        "locator": null
+                      }
+                    ],
+                    "text": [
+                      {
+                        "text": "(Knuth, 1984)"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "text": "."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "text": " More text."
+        },
+        {
+          "footnote": [
+            {
+              "para": [
+                {
+                  "text": "Second note."
+                }
+              ]
+            },
+            {
+              "para": [
+                {
+                  "text": "With a second paragraph."
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "figure": {
+        "body": {
+          "image": {
+            "resource": "red.png",
+            "alt": "A red square",
+            "width": 0.5
+          }
+        },
+        "caption": [
+          {
+            "text": "A "
+          },
+          {
+            "emph": [
+              {
+                "text": "red"
+              }
+            ]
+          },
+          {
+            "text": " square."
+          }
+        ],
+        "label": "red",
+        "number": "Figure 2"
+      }
+    },
+    {
+      "figure": {
+        "body": {
+          "table": {
+            "columns": 2,
+            "header_rows": 1,
+            "rows": [
+              [
+                {
+                  "content": [
+                    {
+                      "para": [
+                        {
+                          "text": "Name"
+                        }
+                      ]
+                    }
+                  ],
+                  "colspan": 1,
+                  "rowspan": 1
+                },
+                {
+                  "content": [
+                    {
+                      "para": [
+                        {
+                          "text": "Value"
+                        }
+                      ]
+                    }
+                  ],
+                  "colspan": 1,
+                  "rowspan": 1
+                }
+              ],
+              [
+                {
+                  "content": [
+                    {
+                      "para": [
+                        {
+                          "text": "a"
+                        }
+                      ]
+                    }
+                  ],
+                  "colspan": 1,
+                  "rowspan": 1
+                },
+                {
+                  "content": [
+                    {
+                      "para": [
+                        {
+                          "text": "1"
+                        }
+                      ]
+                    }
+                  ],
+                  "colspan": 1,
+                  "rowspan": 1
+                }
+              ]
+            ]
+          }
+        },
+        "caption": [
+          {
+            "text": "Values."
+          }
+        ],
+        "label": null,
+        "number": "Table 2"
+      }
+    },
+    {
+      "figure": {
+        "body": {
+          "image": {
+            "resource": "plot.svg",
+            "alt": null,
+            "width": 0.3
+          }
+        },
+        "caption": [],
+        "label": null,
+        "number": null
+      }
+    },
+    {
+      "para": [
+        {
+          "text": "An inline "
+        },
+        {
+          "image": {
+            "resource": "red.png",
+            "alt": null,
+            "width": null
+          }
+        },
+        {
+          "text": " icon."
+        }
+      ]
+    },
+    {
+      "code": {
+        "lang": "py",
+        "text": "print(1)"
+      }
+    },
+    {
+      "para": [
+        {
+          "text": "Listing 1: Code."
+        }
+      ]
+    },
+    {
+      "table": {
+        "columns": 3,
+        "header_rows": 1,
+        "rows": [
+          [
+            {
+              "content": [
+                {
+                  "para": [
+                    {
+                      "text": "A"
+                    }
+                  ]
+                }
+              ],
+              "colspan": 1,
+              "rowspan": 1
+            },
+            {
+              "content": [
+                {
+                  "para": [
+                    {
+                      "text": "B"
+                    }
+                  ]
+                }
+              ],
+              "colspan": 1,
+              "rowspan": 1
+            },
+            {
+              "content": [
+                {
+                  "para": [
+                    {
+                      "text": "C"
+                    }
+                  ]
+                }
+              ],
+              "colspan": 1,
+              "rowspan": 1
+            }
+          ],
+          [
+            {
+              "content": [
+                {
+                  "para": [
+                    {
+                      "text": "wide"
+                    }
+                  ]
+                }
+              ],
+              "colspan": 2,
+              "rowspan": 1
+            },
+            {
+              "content": [
+                {
+                  "para": [
+                    {
+                      "text": "x"
+                    }
+                  ]
+                }
+              ],
+              "colspan": 1,
+              "rowspan": 1
+            }
+          ],
+          [
+            {
+              "content": [
+                {
+                  "para": [
+                    {
+                      "text": "tall"
+                    }
+                  ]
+                }
+              ],
+              "colspan": 1,
+              "rowspan": 2
+            },
+            {
+              "content": [
+                {
+                  "para": [
+                    {
+                      "text": "1"
+                    }
+                  ]
+                }
+              ],
+              "colspan": 1,
+              "rowspan": 1
+            },
+            {
+              "content": [
+                {
+                  "para": [
+                    {
+                      "text": "2"
+                    }
+                  ]
+                }
+              ],
+              "colspan": 1,
+              "rowspan": 1
+            }
+          ],
+          [
+            {
+              "content": [
+                {
+                  "para": [
+                    {
+                      "text": "3"
+                    }
+                  ]
+                }
+              ],
+              "colspan": 1,
+              "rowspan": 1
+            },
+            {
+              "content": [
+                {
+                  "para": [
+                    {
+                      "strong": [
+                        {
+                          "text": "4"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "colspan": 1,
+              "rowspan": 1
+            }
+          ]
+        ]
+      }
+    },
+    {
+      "table": {
+        "columns": 2,
+        "header_rows": 0,
+        "rows": [
+          [
+            {
+              "content": [
+                {
+                  "para": [
+                    {
+                      "text": "one"
+                    }
+                  ]
+                }
+              ],
+              "colspan": 1,
+              "rowspan": 1
+            },
+            {
+              "content": [
+                {
+                  "para": [
+                    {
+                      "text": "two"
+                    }
+                  ]
+                },
+                {
+                  "para": [
+                    {
+                      "text": "paragraphs"
+                    }
+                  ]
+                }
+              ],
+              "colspan": 1,
+              "rowspan": 1
+            }
+          ]
+        ]
+      }
+    },
+    {
+      "para": [
+        {
+          "text": "Inline "
+        },
+        {
+          "math": {
+            "typst": "a^2 + b^2 = c^2",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><msup><mi>𝑎</mi><mn>2</mn></msup><mo>+</mo><msup><mi>𝑏</mi><mn>2</mn></msup><mo>=</mo><msup><mi>𝑐</mi><mn>2</mn></msup></math>",
+            "image": null
+          }
+        },
+        {
+          "text": " and "
+        },
+        {
+          "math": {
+            "typst": "x < y",
+            "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mi>𝑥</mi><mo>&lt;</mo><mi>𝑦</mi></math>",
+            "image": null
+          }
+        },
+        {
+          "text": "."
+        }
+      ]
+    },
+    {
+      "math": {
+        "math": {
+          "typst": "sum_(k=1)^n k = (n(n+1)) / 2",
+          "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><munderover><mo lspace=\"0em\">∑</mo><mrow><mi>𝑘</mi><mo lspace=\"0em\" rspace=\"0em\">=</mo><mn>1</mn></mrow><mi>𝑛</mi></munderover><mi>𝑘</mi><mo>=</mo><mfrac><mrow><mi>𝑛</mi><mrow><mo>(</mo><mrow><mi>𝑛</mi><mo>+</mo><mn>1</mn></mrow><mo>)</mo></mrow></mrow><mn>2</mn></mfrac></math>",
+          "image": null
+        },
+        "label": "sum",
+        "number": "(2)"
+      }
+    },
+    {
+      "math": {
+        "math": {
+          "typst": "a &= b \\\n  c &= d",
+          "mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mtable class=\"multiline-equation aligned\"><mtr><mtd><mi>𝑎</mi></mtd><mtd><mo form=\"infix\">=</mo><mi>𝑏</mi></mtd></mtr><mtr><mtd><mi>𝑐</mi></mtd><mtd><mo form=\"infix\">=</mo><mi>𝑑</mi></mtd></mtr></mtable></math>",
+          "image": null
+        },
+        "label": null,
+        "number": "(3)"
+      }
+    },
+    {
+      "heading": {
+        "level": 1,
+        "content": [
+          {
+            "text": "Bibliography"
+          }
+        ],
+        "label": null
+      }
+    },
+    {
+      "list": {
+        "ordered": false,
+        "start": 1,
+        "items": [
+          [
+            {
+              "para": [
+                {
+                  "text": "Doe, J., & Roe, R. (2020). On Layout. "
+                },
+                {
+                  "emph": [
+                    {
+                      "text": "Journal of Typesetting"
+                    }
+                  ]
+                },
+                {
+                  "text": "."
+                }
+              ]
+            }
+          ],
+          [
+            {
+              "para": [
+                {
+                  "text": "Knuth, D. E. (1984). "
+                },
+                {
+                  "emph": [
+                    {
+                      "text": "The TeXbook"
+                    }
+                  ]
+                },
+                {
+                  "text": ". Addison-Wesley."
+                }
+              ]
+            }
+          ]
+        ]
+      }
+    }
+  ],
+  "resources": [
+    {
+      "name": "plot.svg",
+      "mime": "image/svg+xml",
+      "bytes": [
+        60,
+        115,
+        118,
+        103,
+        32,
+        120,
+        109,
+        108,
+        110,
+        115,
+        61,
+        34,
+        104,
+        116,
+        116,
+        112,
+        58,
+        47,
+        47,
+        119,
+        119,
+        119,
+        46,
+        119,
+        51,
+        46,
+        111,
+        114,
+        103,
+        47,
+        50,
+        48,
+        48,
+        48,
+        47,
+        115,
+        118,
+        103,
+        34,
+        32,
+        119,
+        105,
+        100,
+        116,
+        104,
+        61,
+        34,
+        49,
+        50,
+        48,
+        34,
+        32,
+        104,
+        101,
+        105,
+        103,
+        104,
+        116,
+        61,
+        34,
+        54,
+        48,
+        34,
+        62,
+        60,
+        114,
+        101,
+        99,
+        116,
+        32,
+        119,
+        105,
+        100,
+        116,
+        104,
+        61,
+        34,
+        49,
+        50,
+        48,
+        34,
+        32,
+        104,
+        101,
+        105,
+        103,
+        104,
+        116,
+        61,
+        34,
+        54,
+        48,
+        34,
+        32,
+        102,
+        105,
+        108,
+        108,
+        61,
+        34,
+        103,
+        114,
+        101,
+        101,
+        110,
+        34,
+        47,
+        62,
+        60,
+        47,
+        115,
+        118,
+        103,
+        62,
+        10
+      ]
+    },
+    {
+      "name": "red.png",
+      "mime": "image/png",
+      "bytes": [
+        137,
+        80,
+        78,
+        71,
+        13,
+        10,
+        26,
+        10,
+        0,
+        0,
+        0,
+        13,
+        73,
+        72,
+        68,
+        82,
+        0,
+        0,
+        0,
+        2,
+        0,
+        0,
+        0,
+        2,
+        8,
+        2,
+        0,
+        0,
+        0,
+        253,
+        212,
+        154,
+        115,
+        0,
+        0,
+        0,
+        19,
+        73,
+        68,
+        65,
+        84,
+        120,
+        156,
+        99,
+        248,
+        207,
+        192,
+        240,
+        159,
+        1,
+        140,
+        255,
+        51,
+        48,
+        0,
+        0,
+        31,
+        238,
+        3,
+        253,
+        53,
+        27,
+        0,
+        51,
+        0,
+        0,
+        0,
+        0,
+        73,
+        69,
+        78,
+        68,
+        174,
+        66,
+        96,
+        130
+      ]
+    }
+  ]
+}

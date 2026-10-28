@@ -1,0 +1,122 @@
+{
+  "doc": {
+    "blocks": [
+      {
+        "para": [
+          {
+            "text": "Text."
+          },
+          {
+            "footnote": [
+              {
+                "para": [
+                  {
+                    "text": "A note with "
+                  },
+                  {
+                    "strong": [
+                      {
+                        "text": "bold"
+                      }
+                    ]
+                  },
+                  {
+                    "text": " and "
+                  },
+                  {
+                    "cite": {
+                      "items": [
+                        {
+                          "key": "knuth84",
+                          "locator": null
+                        }
+                      ],
+                      "text": [
+                        {
+                          "text": "(Knuth, 1984)"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "text": "."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "text": " More text."
+          },
+          {
+            "footnote": [
+              {
+                "para": [
+                  {
+                    "text": "Second note."
+                  }
+                ]
+              },
+              {
+                "para": [
+                  {
+                    "text": "With a second paragraph."
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "heading": {
+          "content": [
+            {
+              "text": "Bibliography"
+            }
+          ],
+          "label": null,
+          "level": 1
+        }
+      },
+      {
+        "list": {
+          "items": [
+            [
+              {
+                "para": [
+                  {
+                    "text": "Knuth, D. E. (1984). "
+                  },
+                  {
+                    "emph": [
+                      {
+                        "text": "The TeXbook"
+                      }
+                    ]
+                  },
+                  {
+                    "text": ". Addison-Wesley."
+                  }
+                ]
+              }
+            ]
+          ],
+          "ordered": false,
+          "start": 1
+        }
+      }
+    ],
+    "meta": {
+      "authors": [
+        "Ada Lovelace"
+      ],
+      "date": null,
+      "lang": "en",
+      "subtitle": null,
+      "title": "Export test"
+    },
+    "resources": []
+  },
+  "warnings": []
+}

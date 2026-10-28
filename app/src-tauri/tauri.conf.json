@@ -1,0 +1,71 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "Lethora",
+  "identifier": "app.lethora",
+  "build": {
+    "beforeDevCommand": "npm run dev",
+    "devUrl": "http://localhost:1420",
+    "beforeBuildCommand": "npm run build",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "windows": [
+      {
+        "label": "splash",
+        "title": "Lethora",
+        "url": "splash.html",
+        "width": 720,
+        "height": 480,
+        "center": true,
+        "resizable": false,
+        "maximizable": false,
+        "decorations": false,
+        "dragDropEnabled": false
+      },
+      {
+        "label": "main",
+        "title": "Lethora",
+        "width": 1100,
+        "height": 800,
+        "decorations": false,
+        "dragDropEnabled": false,
+        "visible": false
+      }
+    ],
+    "security": {
+      "csp": {
+        "default-src": "'self'",
+        "script-src": "'self'",
+        "style-src": "'self'",
+        "style-src-elem": "'self' 'unsafe-inline'",
+        "img-src": "'self' blob: data:",
+        "connect-src": "ipc: http://ipc.localhost"
+      }
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": ["nsis", "app", "dmg", "appimage", "deb"],
+    "macOS": {
+      "signingIdentity": "-"
+    },
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ]
+  },
+  "plugins": {
+    "updater": {
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDkzNTVFQkM5RkNDMjlFQTkKUldTcG5zTDh5ZXRWazk1ayszdnZ0NktyZHd0Z3E1VlZ6ek1ZNnpRT2M3dVErWlJNWEo3QVBJNFgK",
+      "endpoints": [
+        "https://github.com/BechtStudio/lethora/releases/latest/download/latest.json"
+      ],
+      "windows": {
+        "installMode": "passive"
+      }
+    }
+  }
+}

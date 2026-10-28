@@ -1,0 +1,68 @@
+# Builds the docs site (website/) and publishes it to GitHub Pages.
+# Pull requests only build it, so a broken link fails before the merge.
+
+name: Docs
+
+on:
+  # The published folders only; docs/plans/ isn't on the site.
+  push:
+    branches: [main]
+    paths:
+      - "docs/dev/**"
+      - "docs/manual/**"
+      - "docs/images/**"
+      - "website/**"
+      - ".github/workflows/docs.yml"
+  pull_request:
+    paths:
+      - "docs/dev/**"
+      - "docs/manual/**"
+      - "docs/images/**"
+      - "website/**"
+      - ".github/workflows/docs.yml"
+  workflow_dispatch:
+
+# One run per branch at a time. A newer push to a pull request makes the
+# older build moot; on main the running deployment finishes first.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: website/package-lock.json
+
+      - run: npm --prefix website ci
+
+      - run: npm --prefix website run build
+
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: website/build
+
+  deploy:
+    needs: build
+    # Pages needs the repository to be public; until it is (#2) the site
+    # only builds, and deploys start by themselves once it goes public.
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main' && !github.event.repository.private
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5

@@ -1,0 +1,24 @@
+[package]
+name = "lethora-convert"
+version.workspace = true
+license.workspace = true
+edition = "2024"
+publish = false
+
+[dependencies]
+serde = { version = "1", features = ["derive"] }
+thiserror = "2"
+# CommonMark plus tables, footnotes, strikethrough, task lists and math (MIT);
+# without the HTML renderer and the command-line parts.
+pulldown-cmark = { version = "0.13.5", default-features = false }
+# Zip entries (DOCX, EPUB): deflate on the pure-Rust backend; the version the
+# tree already has.
+flate2 = { version = "1.1.10", default-features = false, features = ["rust_backend"] }
+# XML (DOCX parts); no DTDs, no external entities. The version in the tree.
+roxmltree = "0.21.1"
+
+[dev-dependencies]
+# Checks the generated markup with Typst's own parser; the version the
+# typeset crate already uses.
+typst-syntax = "0.15.1"
+serde_json = "1"

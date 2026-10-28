@@ -1,0 +1,10 @@
+# Caddy in front of lethora-server (used by docker-compose.yml). Caddy gets
+# the certificate for the domain, passes WebSocket upgrades on, sets
+# X-Forwarded-For and has no body size limit or idle timeout of its own.
+#
+# Without Docker, replace lethora:8740 with 127.0.0.1:8740 and set
+# trusted_proxies = ["127.0.0.1"] in lethora-server.toml.
+
+{$LETHORA_DOMAIN} {
+	reverse_proxy lethora:8740
+}

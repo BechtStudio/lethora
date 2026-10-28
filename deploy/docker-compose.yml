@@ -1,0 +1,59 @@
+# lethora-server behind Caddy, which gets and renews the HTTPS certificate
+# by itself (see docs/dev/server.md). Point the domain's DNS at this machine,
+# open ports 80 and 443, then from the repository root:
+#
+#   LETHORA_DOMAIN=sync.example.org docker compose -f deploy/docker-compose.yml up -d
+#
+# The apps then use https://sync.example.org as the server address.
+
+name: lethora
+
+services:
+  lethora:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile
+    image: lethora-server
+    restart: unless-stopped
+    environment:
+      LETHORA_PUBLIC_URL: https://${LETHORA_DOMAIN:?set LETHORA_DOMAIN, e.g. sync.example.org}
+      # Caddy's address below: its X-Forwarded-For names the client, so the
+      # per-address limits apply to the client, not to Caddy.
+      LETHORA_TRUSTED_PROXIES: 172.30.0.10
+      # Limits can be set here too, e.g. LETHORA_PROJECTS_PER_IP_PER_DAY: "5".
+    volumes:
+      - lethora-data:/data
+    networks:
+      - lethora
+    # Not published: only Caddy talks to it.
+
+  caddy:
+    image: caddy:2
+    restart: unless-stopped
+    depends_on:
+      - lethora
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      LETHORA_DOMAIN: ${LETHORA_DOMAIN:?set LETHORA_DOMAIN}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+    networks:
+      lethora:
+        # Fixed, so lethora can trust it (LETHORA_TRUSTED_PROXIES above).
+        ipv4_address: 172.30.0.10
+
+networks:
+  lethora:
+    ipam:
+      config:
+        # Change both addresses if this subnet is taken on the host.
+        - subnet: 172.30.0.0/24
+
+volumes:
+  lethora-data:
+  caddy-data:
+  caddy-config:

@@ -1,0 +1,55 @@
+[package]
+name = "lethora-typeset"
+version.workspace = true
+license.workspace = true
+edition = "2024"
+publish = false
+
+[dependencies]
+serde = { version = "1", features = ["derive"] }
+typst = "0.15.1"
+# `PagedDocument`/`Page` live here and are not re-exported by `typst`.
+typst-layout = "0.15.1"
+typst-svg = "0.15.1"
+typst-pdf = "0.15.1"
+# The HTML document (`HtmlDocument`, its DOM) that exports walk; already in
+# the tree through `typst`.
+typst-html = "0.15.1"
+# The document model and the writers exports end in.
+lethora-convert = { path = "../convert" }
+typst-assets = { version = "0.15.1", features = ["fonts"] }
+# Same version typst-library depends on, so it isn't duplicated.
+hayagriva = "0.10.1"
+serde_json = "1"
+# System font search (the embedded set stays in `fonts.rs`).
+typst-kit = { version = "0.15.1", default-features = false, features = ["scan-fonts"] }
+typst-ide = "0.15.1"
+# Downscaling images at PDF export; the version Typst already uses (it adds
+# the decoders for GIF and WebP).
+image = { version = "0.25.10", default-features = false, features = ["jpeg", "png"] }
+# PNG twins of SVG images and formulas for DOCX; the version krilla-svg
+# (Typst's PDF export) already brings, with its features.
+resvg = "0.47.0"
+
+# Job object for the worker's memory cap; the version already in Cargo.lock.
+[target.'cfg(windows)'.dependencies]
+windows-sys = { version = "0.61", features = [
+    "Win32_Foundation",
+    "Win32_Security",
+    "Win32_System_JobObjects",
+    "Win32_System_SystemInformation",
+    "Win32_System_Threading",
+] }
+
+# setrlimit for the worker's memory cap; already in Cargo.lock.
+[target.'cfg(unix)'.dependencies]
+libc = "0.2"
+
+[[bin]]
+name = "lethora-typeset-worker"
+path = "src/bin/worker.rs"
+# Spawned by the worker tests and usable for manual debugging.
+test = false
+
+[dev-dependencies]
+tempfile = "3"

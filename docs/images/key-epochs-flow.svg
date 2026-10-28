@@ -1,0 +1,141 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 950" width="980" height="950" font-family="'Segoe UI', system-ui, -apple-system, sans-serif">
+  <defs>
+    <marker id="ad" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#334155"/></marker>
+    <marker id="ao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#d97706"/></marker>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/></marker>
+    <symbol id="lock" viewBox="0 0 12 14"><path d="M3,6.5 V4.5 a3,3 0 0 1 6,0 V6.5" fill="none" stroke="#92400e" stroke-width="1.8"/><rect x="1" y="6" width="10" height="7.5" rx="1.6" fill="#92400e"/></symbol>
+    <style>
+      .lbl { font-size: 14px; font-weight: 700; fill: #1e293b; paint-order: stroke; stroke: #fffdf7; stroke-width: 5px; stroke-linejoin: round; }
+      .sub { font-size: 12px; fill: #475569; paint-order: stroke; stroke: #fffdf7; stroke-width: 5px; stroke-linejoin: round; }
+      .note { font-size: 13px; fill: #422006; }
+      .small { font-size: 12px; fill: #334155; }
+      .head { font-size: 16px; font-weight: 700; fill: #0f172a; }
+      .pill { font-size: 12px; font-weight: 700; fill: #ffffff; }
+      .num { font-size: 13px; font-weight: 700; fill: #ffffff; }
+    </style>
+  </defs>
+
+  <rect width="980" height="950" rx="18" fill="#fffdf7"/>
+  <text x="490" y="40" text-anchor="middle" font-size="21" font-weight="700" fill="#0f172a">Alice removes Bob: the project key moves to epoch 2</text>
+
+  <!-- Lifelines -->
+  <g stroke-width="2" stroke-dasharray="6 6">
+    <line x1="140" y1="150" x2="140" y2="840" stroke="#cbd5e1"/>
+    <line x1="470" y1="150" x2="470" y2="840" stroke="#cbd5e1"/>
+    <line x1="730" y1="150" x2="730" y2="840" stroke="#cbd5e1"/>
+    <line x1="890" y1="150" x2="890" y2="300" stroke="#cbd5e1"/>
+    <line x1="890" y1="300" x2="890" y2="840" stroke="#fca5a5" stroke-dasharray="2 7"/>
+  </g>
+
+  <!-- Participants -->
+  <g>
+    <rect x="65" y="62" width="150" height="56" rx="14" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+    <text x="140" y="86" text-anchor="middle" class="head">Alice</text>
+    <text x="140" y="105" text-anchor="middle" class="small">owner · her laptop</text>
+
+    <rect x="370" y="62" width="200" height="56" rx="14" fill="#f1f5f9" stroke="#64748b" stroke-width="2"/>
+    <text x="470" y="86" text-anchor="middle" class="head">Lethora server</text>
+    <text x="470" y="105" text-anchor="middle" class="small">stores and forwards, can't read</text>
+
+    <rect x="655" y="62" width="150" height="56" rx="14" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+    <text x="730" y="86" text-anchor="middle" class="head">Carol</text>
+    <text x="730" y="105" text-anchor="middle" class="small">editor</text>
+
+    <rect x="815" y="62" width="150" height="56" rx="14" fill="#fee2e2" stroke="#dc2626" stroke-width="2"/>
+    <text x="890" y="86" text-anchor="middle" class="head">Bob</text>
+    <text x="890" y="105" text-anchor="middle" class="small">editor, being removed</text>
+  </g>
+
+  <!-- Keys held at the start -->
+  <g>
+    <rect x="122" y="128" width="36" height="22" rx="11" fill="#2563eb"/><text x="140" y="143" text-anchor="middle" class="pill">K1</text>
+    <rect x="712" y="128" width="36" height="22" rx="11" fill="#2563eb"/><text x="730" y="143" text-anchor="middle" class="pill">K1</text>
+    <rect x="872" y="128" width="36" height="22" rx="11" fill="#2563eb"/><text x="890" y="143" text-anchor="middle" class="pill">K1</text>
+    <rect x="425" y="128" width="90" height="22" rx="11" fill="#e2e8f0"/><text x="470" y="143" text-anchor="middle" font-size="12" font-weight="700" fill="#64748b">no keys</text>
+  </g>
+
+  <!-- 1. Remove -->
+  <line x1="142" y1="195" x2="466" y2="195" stroke="#334155" stroke-width="2" marker-end="url(#ad)"/>
+  <circle cx="200" cy="181" r="12" fill="#1e293b"/><text x="200" y="186" text-anchor="middle" class="num">1</text>
+  <text x="305" y="186" text-anchor="middle" class="lbl">"remove Bob"</text>
+  <text x="305" y="214" text-anchor="middle" class="sub">a signed entry for the members log</text>
+
+  <!-- 2. Forward removal to Carol -->
+  <line x1="472" y1="255" x2="726" y2="255" stroke="#334155" stroke-width="2" marker-end="url(#ad)"/>
+  <circle cx="510" cy="241" r="12" fill="#1e293b"/><text x="510" y="246" text-anchor="middle" class="num">2</text>
+  <text x="610" y="246" text-anchor="middle" class="lbl">the same entry</text>
+  <text x="600" y="274" text-anchor="middle" class="sub">checked, stored, passed on</text>
+
+  <!-- 3. Bob refused -->
+  <line x1="472" y1="305" x2="886" y2="305" stroke="#dc2626" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#ar)"/>
+  <circle cx="510" cy="291" r="12" fill="#dc2626"/><text x="510" y="296" text-anchor="middle" class="num">3</text>
+  <text x="680" y="296" text-anchor="middle" class="lbl">"you were removed": connection closed</text>
+  <text x="680" y="324" text-anchor="middle" class="sub">Bob's devices are refused from now on</text>
+
+  <!-- 4. Alice makes K2 -->
+  <g transform="rotate(-1 195 395)">
+    <rect x="30" y="345" width="330" height="108" rx="10" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+    <circle cx="52" cy="367" r="12" fill="#1e293b"/><text x="52" y="372" text-anchor="middle" class="num">4</text>
+    <text x="74" y="372" class="note" font-weight="700">Alice's app makes a new random key</text>
+    <rect x="309" y="357" width="36" height="22" rx="11" fill="#ea580c"/><text x="327" y="372" text-anchor="middle" class="pill">K2</text>
+    <text x="46" y="398" class="note">and locks one copy of it for every remaining</text>
+    <text x="46" y="418" class="note">device (Alice, Carol) and every open invite</text>
+    <text x="46" y="438" class="note">link, each with that device's public key.</text>
+  </g>
+
+  <!-- 5. Epoch entry to the server -->
+  <line x1="142" y1="495" x2="466" y2="495" stroke="#d97706" stroke-width="2.5" marker-end="url(#ao)"/>
+  <circle cx="200" cy="481" r="12" fill="#1e293b"/><text x="200" y="486" text-anchor="middle" class="num">5</text>
+  <text x="305" y="486" text-anchor="middle" class="lbl">"epoch 2" entry</text>
+  <g transform="translate(168 504)">
+    <use href="#lock" x="0" y="0" width="12" height="14"/>
+    <text x="17" y="12" class="sub">K2 for Alice</text>
+    <use href="#lock" x="96" y="0" width="12" height="14"/>
+    <text x="113" y="12" class="sub">K2 for Carol</text>
+  </g>
+  <rect x="380" y="515" width="180" height="50" rx="10" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="470" y="536" text-anchor="middle" class="small">checks signature and rules,</text>
+  <text x="470" y="554" text-anchor="middle" class="small">can't open the locked copies</text>
+
+  <!-- 6. Epoch entry to Carol -->
+  <line x1="472" y1="605" x2="726" y2="605" stroke="#d97706" stroke-width="2.5" marker-end="url(#ao)"/>
+  <circle cx="510" cy="591" r="12" fill="#1e293b"/><text x="510" y="596" text-anchor="middle" class="num">6</text>
+  <text x="610" y="596" text-anchor="middle" class="lbl">"epoch 2" entry</text>
+  <g transform="rotate(1 730 655)">
+    <rect x="640" y="620" width="180" height="78" rx="10" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+    <text x="730" y="642" text-anchor="middle" class="note">opens her copy with</text>
+    <text x="730" y="660" text-anchor="middle" class="note">her own device key</text>
+    <rect x="690" y="668" width="36" height="22" rx="11" fill="#2563eb"/><text x="708" y="683" text-anchor="middle" class="pill">K1</text>
+    <rect x="734" y="668" width="36" height="22" rx="11" fill="#ea580c"/><text x="752" y="683" text-anchor="middle" class="pill">K2</text>
+  </g>
+
+  <!-- 7. New edits with K2 -->
+  <line x1="728" y1="745" x2="474" y2="745" stroke="#d97706" stroke-width="2.5" marker-end="url(#ao)"/>
+  <line x1="468" y1="745" x2="144" y2="745" stroke="#d97706" stroke-width="2.5" marker-end="url(#ao)"/>
+  <circle cx="690" cy="731" r="12" fill="#1e293b"/><text x="690" y="736" text-anchor="middle" class="num">7</text>
+  <text x="600" y="736" text-anchor="middle" class="lbl">Carol's new edits</text>
+  <text x="600" y="764" text-anchor="middle" class="sub">sealed with K2</text>
+  <text x="305" y="736" text-anchor="middle" class="lbl">passed on as they are</text>
+  <text x="305" y="764" text-anchor="middle" class="sub">Alice opens them with K2</text>
+
+  <!-- 8. Bob is out -->
+  <line x1="472" y1="800" x2="850" y2="800" stroke="#dc2626" stroke-width="2" stroke-dasharray="3 6"/>
+  <g stroke="#dc2626" stroke-width="3.5" stroke-linecap="round"><line x1="858" y1="790" x2="876" y2="810"/><line x1="876" y1="790" x2="858" y2="810"/></g>
+  <circle cx="510" cy="786" r="12" fill="#dc2626"/><text x="510" y="791" text-anchor="middle" class="num">8</text>
+  <text x="680" y="790" text-anchor="middle" class="sub">even if Bob got hold of the server's data</text>
+  <rect x="818" y="815" width="150" height="78" rx="10" fill="#fee2e2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="832" y="839" class="small">Bob has only</text>
+  <rect x="912" y="824" width="36" height="22" rx="11" fill="#2563eb"/><text x="930" y="839" text-anchor="middle" class="pill">K1</text>
+  <text x="893" y="862" text-anchor="middle" class="small">nothing sealed with K2</text>
+  <text x="893" y="880" text-anchor="middle" class="small">opens for him</text>
+
+  <!-- Legend -->
+  <g transform="translate(30 900)">
+    <rect x="0" y="10" width="36" height="22" rx="11" fill="#2563eb"/><text x="18" y="25" text-anchor="middle" class="pill">K1</text>
+    <text x="44" y="26" class="small">key of epoch 1 (since sharing)</text>
+    <rect x="240" y="10" width="36" height="22" rx="11" fill="#ea580c"/><text x="258" y="25" text-anchor="middle" class="pill">K2</text>
+    <text x="284" y="26" class="small">new key after the removal</text>
+    <use href="#lock" x="460" y="14" width="12" height="14"/>
+    <text x="478" y="26" class="small">a copy of a key, locked so only one device can open it</text>
+  </g>
+</svg>

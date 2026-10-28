@@ -1,0 +1,33 @@
+[package]
+name = "lethora-app"
+version.workspace = true
+license.workspace = true
+edition = "2024"
+publish = false
+
+[build-dependencies]
+tauri-build = { version = "2.7.2", features = [] }
+
+[dependencies]
+lethora-core = { path = "../../crates/core" }
+lethora-typeset = { path = "../../crates/typeset" }
+lethora-spell = { path = "../../crates/spell" }
+lethora-convert = { path = "../../crates/convert" }
+tauri = { version = "2.12.3", features = [] }
+tauri-plugin-dialog = "2.8.2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+getrandom = "0.3"
+# Server sync: one task per open project on Tauri's tokio runtime. The
+# WebSocket with the OS's TLS (native-tls), HTTP/1 only (no h2) for
+# snapshots, assets and invite keys; the versions already in Cargo.lock.
+tokio = { version = "1.53", features = ["sync", "time", "macros"] }
+tokio-tungstenite = { version = "0.29", features = ["native-tls"] }
+reqwest = { version = "0.13", default-features = false, features = ["native-tls"] }
+futures-util = { version = "0.3", default-features = false, features = ["sink"] }
+# Updates from the GitHub release's latest.json, over the OS's TLS like
+# server sync (no rustls); no zip: only the v1 updater artifacts were zipped.
+tauri-plugin-updater = { version = "2.14.0", default-features = false, features = ["native-tls"] }
+
+[target.'cfg(windows)'.dependencies]
+windows = { version = "0.62", features = ["Win32_Foundation", "Win32_Graphics_Gdi", "Win32_System_LibraryLoader", "Win32_UI_Input_KeyboardAndMouse", "Win32_UI_WindowsAndMessaging"] }

@@ -1,0 +1,78 @@
+# Checks every push and pull request on the three systems Lethora ships for:
+# formatting, clippy, the Rust and web tests, and the web build.
+
+name: CI
+
+on:
+  # Branches only: a release tag's commit was already checked on its
+  # branch, and the release workflow builds it anyway.
+  push:
+    branches: ["**"]
+  pull_request:
+
+# A newer push to the same branch or pull request makes the older run moot.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+env:
+  CARGO_TERM_COLOR: always
+  # No debug info: the test binaries with it filled the Linux runner's disk
+  # (the linker died with a bus error), and the cache stays small.
+  CARGO_PROFILE_DEV_DEBUG: 0
+
+jobs:
+  check:
+    name: ${{ matrix.os }}
+    strategy:
+      # One system failing shouldn't hide whether the others pass.
+      fail-fast: false
+      matrix:
+        # Ubuntu 22.04: the oldest WebKitGTK 4.1 that Tauri 2 needs, and
+        # the system the Linux release is built on.
+        os: [ubuntu-22.04, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: clippy, rustfmt
+
+      - uses: Swatinem/rust-cache@v2
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: app/package-lock.json
+
+      # The same packages as scripts/setup-linux.sh.
+      - name: Linux system packages
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            build-essential pkg-config curl wget file \
+            libwebkit2gtk-4.1-dev libxdo-dev libssl-dev \
+            libayatana-appindicator3-dev librsvg2-dev
+
+      # Formatting is the same everywhere; once is enough.
+      - name: cargo fmt
+        if: runner.os == 'Linux'
+        run: cargo fmt --check
+
+      - run: npm --prefix app ci
+
+      - run: npm --prefix app test
+
+      # Type check and production bundle of the web view.
+      - run: npm --prefix app run build
+
+      - run: cargo clippy --workspace --all-targets --locked -- -D warnings
+
+      # Without --ignored: the book benchmarks are release-only and slow.
+      - run: cargo test --workspace --locked

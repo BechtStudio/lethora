@@ -1,0 +1,28 @@
+[package]
+name = "lethora-core"
+version.workspace = true
+license.workspace = true
+edition = "2024"
+publish = false
+
+[dependencies]
+loro = "=1.16.2" # pinned: see [patch.crates-io] in the root Cargo.toml
+# Replica envelopes (versions 1 and 3) and log framing, shared with the server.
+lethora-protocol = { path = "../protocol" }
+crc32fast = "1"
+# Random project key for asset names; the version already in Cargo.lock.
+getrandom = "0.3"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+thiserror = "2"
+# Keyed SHA-256 names of asset blobs; the version already in Cargo.lock.
+sha2 = "0.10"
+
+[dev-dependencies]
+tempfile = "3"
+# End-to-end tests of server sync against a real server in-process, with a
+# small WebSocket test client; the versions the server already uses.
+lethora-server = { path = "../server" }
+tokio = { version = "1.53", features = ["rt-multi-thread", "macros", "net", "time", "io-util"] }
+tokio-tungstenite = "0.29"
+futures-util = { version = "0.3", default-features = false, features = ["sink"] }

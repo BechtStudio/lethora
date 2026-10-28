@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <!-- macOS Dock icon (icon.icns, `npx tauri icon icons/icon-macos.svg`): Apple's 1024 grid, an 824 continuous-corner square with a soft shadow, the "L" of icon.png (512 tile mapped onto the square). -->
+  <defs>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="125%">
+      <feDropShadow dx="0" dy="10" stdDeviation="5" flood-color="#000" flood-opacity="0.3" />
+    </filter>
+  </defs>
+  <path filter="url(#shadow)" fill="#202128" d="M640.59,100C722.19,100 763,100 806.92,113.89C854.88,131.34 892.66,169.12 910.11,217.08C924,261 924,301.81 924,383.41L924,640.59C924,722.19 924,763 910.11,806.92C892.66,854.88 854.88,892.66 806.92,910.11C763,924 722.19,924 640.59,924L383.41,924C301.81,924 261,924 217.08,910.11C169.12,892.66 131.34,854.88 113.89,806.92C100,763 100,722.19 100,640.59L100,383.41C100,301.81 100,261 113.89,217.08C131.34,169.12 169.12,131.34 217.08,113.89C261,100 301.81,100 383.41,100Z" />
+  <path transform="translate(100 100) scale(1.609375)" fill="#ECE6DA" d="M170 120H230V332H350V392H170Z" />
+</svg>

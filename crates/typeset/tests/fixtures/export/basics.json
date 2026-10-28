@@ -1,0 +1,292 @@
+{
+  "doc": {
+    "blocks": [
+      {
+        "heading": {
+          "content": [
+            {
+              "text": "1. Introduction"
+            }
+          ],
+          "label": "intro",
+          "level": 1
+        }
+      },
+      {
+        "para": [
+          {
+            "text": "Text with "
+          },
+          {
+            "strong": [
+              {
+                "text": "bold"
+              }
+            ]
+          },
+          {
+            "text": ", "
+          },
+          {
+            "emph": [
+              {
+                "text": "italic"
+              }
+            ]
+          },
+          {
+            "text": ", "
+          },
+          {
+            "underline": [
+              {
+                "text": "underlined"
+              }
+            ]
+          },
+          {
+            "text": ", "
+          },
+          {
+            "strike": [
+              {
+                "text": "struck"
+              }
+            ]
+          },
+          {
+            "text": ", H"
+          },
+          {
+            "sub": [
+              {
+                "text": "2"
+              }
+            ]
+          },
+          {
+            "text": "O, x"
+          },
+          {
+            "super": [
+              {
+                "text": "2"
+              }
+            ]
+          },
+          {
+            "text": ", Small Caps, "
+          },
+          {
+            "code": "code"
+          },
+          {
+            "text": " and "
+          },
+          {
+            "link": {
+              "content": [
+                {
+                  "text": "a link"
+                }
+              ],
+              "url": "https://example.com"
+            }
+          },
+          {
+            "text": " and "
+          },
+          {
+            "link": {
+              "content": [
+                {
+                  "text": "https://typst.app"
+                }
+              ],
+              "url": "https://typst.app"
+            }
+          },
+          {
+            "text": ". A forced"
+          },
+          "line_break",
+          {
+            "text": "line break, “quotes” and 5 < 6 & 7 > 3."
+          }
+        ]
+      },
+      {
+        "heading": {
+          "content": [
+            {
+              "text": "1.1. Lists"
+            }
+          ],
+          "label": null,
+          "level": 2
+        }
+      },
+      {
+        "list": {
+          "items": [
+            [
+              {
+                "para": [
+                  {
+                    "text": "one"
+                  }
+                ]
+              }
+            ],
+            [
+              {
+                "para": [
+                  {
+                    "text": "two"
+                  }
+                ]
+              },
+              {
+                "list": {
+                  "items": [
+                    [
+                      {
+                        "para": [
+                          {
+                            "text": "nested"
+                          }
+                        ]
+                      }
+                    ]
+                  ],
+                  "ordered": false,
+                  "start": 1
+                }
+              }
+            ]
+          ],
+          "ordered": false,
+          "start": 1
+        }
+      },
+      {
+        "list": {
+          "items": [
+            [
+              {
+                "para": [
+                  {
+                    "text": "first"
+                  }
+                ]
+              }
+            ],
+            [
+              {
+                "para": [
+                  {
+                    "text": "second"
+                  }
+                ]
+              }
+            ]
+          ],
+          "ordered": true,
+          "start": 1
+        }
+      },
+      {
+        "list": {
+          "items": [
+            [
+              {
+                "para": [
+                  {
+                    "text": "four"
+                  }
+                ]
+              }
+            ],
+            [
+              {
+                "para": [
+                  {
+                    "text": "five"
+                  }
+                ]
+              }
+            ]
+          ],
+          "ordered": true,
+          "start": 4
+        }
+      },
+      {
+        "para": [
+          {
+            "strong": [
+              {
+                "text": "Term"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "para": [
+          {
+            "text": "Its description."
+          }
+        ]
+      },
+      {
+        "quote": [
+          {
+            "para": [
+              {
+                "text": "A quotation."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "code": {
+          "lang": "rust",
+          "text": "fn main() {\n    println!(\"hi\");\n}"
+        }
+      },
+      {
+        "para": [
+          {
+            "text": "Styled text stays text."
+          }
+        ]
+      }
+    ],
+    "meta": {
+      "authors": [
+        "Ada Lovelace"
+      ],
+      "date": null,
+      "lang": "en",
+      "subtitle": null,
+      "title": "Export test"
+    },
+    "resources": []
+  },
+  "warnings": [
+    {
+      "count": 1,
+      "example": null,
+      "kind": "contents",
+      "message": "Dropped 1 table of contents or index: the layout makes its own."
+    },
+    {
+      "count": 2,
+      "example": "line",
+      "kind": "not-exported",
+      "message": "Left out 2 elements that only work on pages (e.g. line)."
+    }
+  ]
+}

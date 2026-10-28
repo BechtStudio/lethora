@@ -1,0 +1,32 @@
+{
+  "meta": {
+    "title": "Odd \"text\" & <tags>",
+    "subtitle": null,
+    "authors": ["Ada Lovelace", "Charles Babbage"],
+    "date": null,
+    "lang": "de-CH"
+  },
+  "blocks": [
+    {"para": [{"text": "1. Not a list, - not one either; *stars*, _under_, snake_case, [brackets], <tag>, $5, `ticks`, back\\slash, ~tilde~, {braces}, A & B, &amp; an entity, 50% | pipe."}]},
+    {"para": [{"text": "# not a heading"}, "line_break", {"text": "- nor an item"}, "line_break", {"text": "> nor a quote"}]},
+    {"para": [{"text": "Say hi!"}, {"link": {"url": "https://example.com/a b?q=\"x\"&y=1", "content": [{"text": "a link"}]}}, {"text": " and "}, {"link": {"url": "https://typst.app", "content": [{"text": "https://typst.app"}]}}, {"text": " and "}, {"link": {"url": "mailto:ada@example.com", "content": [{"text": "ada@example.com"}]}}]},
+    {"para": [{"emph": [{"text": " spaced "}]}, {"text": "and "}, {"strong": [{"emph": [{"text": "both"}]}]}, {"text": ", "}, {"underline": [{"text": "underlined"}]}, {"text": ", "}, {"code": "a`b"}, {"text": ", "}, {"code": "`x"}, {"text": ", "}, {"super": [{"text": "up"}]}, {"sub": [{"text": "down"}]}]},
+    {"list": {"ordered": false, "start": 1, "items": [[{"para": [{"text": "first list"}]}]]}},
+    {"list": {"ordered": false, "start": 1, "items": [[{"para": [{"text": "second list"}]}]]}},
+    {"list": {"ordered": true, "start": 9, "items": [
+      [{"para": [{"text": "nine"}]}, {"para": [{"text": "a second paragraph"}]}],
+      [{"para": [{"text": "ten"}]}, {"quote": [{"para": [{"text": "quoted in an item"}]}]}]
+    ]}},
+    {"code": {"lang": null, "text": "```\nfenced inside\n```"}},
+    {"table": {"columns": 3, "header_rows": 2, "rows": [
+      [{"content": [{"para": [{"text": "A | B"}]}], "colspan": 2, "rowspan": 1}, {"content": [{"para": [{"text": "C"}]}], "colspan": 1, "rowspan": 1}],
+      [{"content": [{"para": [{"text": "second header"}]}], "colspan": 3, "rowspan": 1}],
+      [{"content": [{"para": [{"text": "tall"}]}], "colspan": 1, "rowspan": 2}, {"content": [{"para": [{"text": "one"}]}, {"para": [{"text": "two"}]}], "colspan": 1, "rowspan": 1}, {"content": [], "colspan": 1, "rowspan": 1}],
+      [{"content": [{"para": [{"text": "x"}, "line_break", {"text": "y"}]}], "colspan": 1, "rowspan": 1}, {"content": [{"list": {"ordered": false, "start": 1, "items": [[{"para": [{"text": "item"}]}]]}}], "colspan": 1, "rowspan": 1}]
+    ]}},
+    {"para": [{"text": "Cited "}, {"cite": {"items": [{"key": "doe2020", "locator": "p. 4"}, {"key": "roe", "locator": null}], "text": null}}, {"text": " and a reference to "}, {"ref": {"label": "nowhere", "text": null}}, {"text": "."}, {"footnote": [{"para": [{"text": "A note"}, {"footnote": [{"para": [{"text": "in a note"}]}]}]}, {"list": {"ordered": false, "start": 1, "items": [[{"para": [{"text": "with a list"}]}]]}}]}]},
+    {"math": {"math": {"typst": "x < y \\\n  & z", "mathml": null, "image": null}, "label": null, "number": null}},
+    "rule"
+  ],
+  "resources": []
+}

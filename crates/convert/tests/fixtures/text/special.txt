@@ -1,0 +1,15 @@
+= Not a heading
+
+- not a list
+
++ not an enum
+
+1. not numbered
+
+/ not a term
+
+#not code $not math$ @not-a-ref <not-a-label> *not bold* _not italic_ `not raw`
+
+// not a comment
+
+\ a backslash \

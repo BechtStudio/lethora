@@ -1,0 +1,283 @@
+=== mimetype (20 bytes)
+application/epub+zip
+=== META-INF/container.xml (245 bytes)
+<?xml version="1.0" encoding="UTF-8"?>
+<container version="1.0" xmlns="urn:oasis:names:tc:opendocument:xmlns:container">
+<rootfiles>
+<rootfile full-path="OEBPS/content.opf" media-type="application/oebps-package+xml" />
+</rootfiles>
+</container>
+=== OEBPS/content.opf (2201 bytes)
+<?xml version="1.0" encoding="UTF-8"?>
+<package xmlns="http://www.idpf.org/2007/opf" version="3.0" unique-identifier="pub-id" xml:lang="en">
+<metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
+<dc:identifier id="pub-id">urn:uuid:69797950-8b2b-8578-bf85-8c4bcec4629b</dc:identifier>
+<dc:title id="title">Export test</dc:title>
+<meta refines="#title" property="title-type">main</meta>
+<dc:title id="subtitle">Every construct</dc:title>
+<meta refines="#subtitle" property="title-type">subtitle</meta>
+<dc:creator id="creator-1">Ada Lovelace</dc:creator>
+<meta refines="#creator-1" property="role" scheme="marc:relators">aut</meta>
+<dc:language>en</dc:language>
+<dc:date>2026</dc:date>
+<meta property="dcterms:modified">2026-10-26T12:00:00Z</meta>
+<meta property="schema:accessMode">textual</meta>
+<meta property="schema:accessMode">visual</meta>
+<meta property="schema:accessibilityFeature">structuralNavigation</meta>
+<meta property="schema:accessibilityFeature">tableOfContents</meta>
+<meta property="schema:accessibilityFeature">MathML</meta>
+<meta property="schema:accessibilityHazard">none</meta>
+<meta property="schema:accessibilitySummary">Reflowable text with headings and a table of contents. Formulas are MathML. Some images have no text alternative.</meta>
+</metadata>
+<manifest>
+<item id="nav" href="nav.xhtml" media-type="application/xhtml+xml" properties="nav" />
+<item id="ncx" href="toc.ncx" media-type="application/x-dtbncx+xml" />
+<item id="style" href="style.css" media-type="text/css" />
+<item id="titlepage" href="titlepage.xhtml" media-type="application/xhtml+xml" />
+<item id="chapter-1" href="chapter-1.xhtml" media-type="application/xhtml+xml" />
+<item id="chapter-2" href="chapter-2.xhtml" media-type="application/xhtml+xml" properties="mathml" />
+<item id="chapter-3" href="chapter-3.xhtml" media-type="application/xhtml+xml" />
+<item id="image-1" href="images/plot.svg" media-type="image/svg+xml" />
+<item id="image-2" href="images/red.png" media-type="image/png" />
+</manifest>
+<spine toc="ncx">
+<itemref idref="titlepage" />
+<itemref idref="nav" linear="no" />
+<itemref idref="chapter-1" />
+<itemref idref="chapter-2" />
+<itemref idref="chapter-3" />
+</spine>
+</package>
+=== OEBPS/nav.xhtml (919 bytes)
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" lang="en" xml:lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Contents</title>
+<link rel="stylesheet" type="text/css" href="style.css" />
+</head>
+<body>
+<nav epub:type="toc" role="doc-toc" id="toc">
+<h1>Contents</h1>
+<ol>
+<li><a href="chapter-1.xhtml#intro">1. Introduction</a>
+<ol>
+<li><a href="chapter-1.xhtml#toc-1">1.1. Lists</a></li>
+</ol>
+</li>
+<li><a href="chapter-2.xhtml#method">2. Method</a></li>
+<li><a href="chapter-3.xhtml#toc-2">Bibliography</a></li>
+</ol>
+</nav>
+<nav epub:type="landmarks" hidden="hidden">
+<h2>Landmarks</h2>
+<ol>
+<li><a epub:type="toc" href="nav.xhtml#toc">Contents</a></li>
+<li><a epub:type="titlepage" href="titlepage.xhtml">Title page</a></li>
+<li><a epub:type="bodymatter" href="chapter-1.xhtml">Start</a></li>
+</ol>
+</nav>
+</body>
+</html>
+=== OEBPS/toc.ncx (946 bytes)
+<?xml version="1.0" encoding="UTF-8"?>
+<ncx xmlns="http://www.daisy.org/z3986/2005/ncx/" version="2005-1" xml:lang="en">
+<head>
+<meta name="dtb:uid" content="urn:uuid:69797950-8b2b-8578-bf85-8c4bcec4629b" />
+<meta name="dtb:depth" content="2" />
+<meta name="dtb:totalPageCount" content="0" />
+<meta name="dtb:maxPageNumber" content="0" />
+</head>
+<docTitle><text>Export test</text></docTitle>
+<navMap>
+<navPoint id="np-1" playOrder="1"><navLabel><text>1. Introduction</text></navLabel><content src="chapter-1.xhtml#intro" />
+<navPoint id="np-2" playOrder="2"><navLabel><text>1.1. Lists</text></navLabel><content src="chapter-1.xhtml#toc-1" />
+</navPoint>
+</navPoint>
+<navPoint id="np-3" playOrder="3"><navLabel><text>2. Method</text></navLabel><content src="chapter-2.xhtml#method" />
+</navPoint>
+<navPoint id="np-4" playOrder="4"><navLabel><text>Bibliography</text></navLabel><content src="chapter-3.xhtml#toc-2" />
+</navPoint>
+</navMap>
+</ncx>
+=== OEBPS/style.css (1351 bytes)
+body { font-family: Georgia, "Times New Roman", serif; line-height: 1.5; }
+h1, h2, h3, h4, h5, h6 { line-height: 1.25; text-align: left; page-break-after: avoid; break-after: avoid; }
+.titlepage { text-align: center; margin-top: 3em; }
+.titlepage h1 { font-size: 2em; text-align: center; }
+.titlepage p { margin: 0.5em 0; }
+.titlepage .subtitle { font-size: 1.25em; font-style: italic; }
+figure { margin: 1.5em 0; text-align: center; page-break-inside: avoid; break-inside: avoid; }
+img { max-width: 100%; height: auto; }
+figcaption { font-size: 0.9em; margin: 0.5em 0; }
+table { border-collapse: collapse; margin: 1em auto; }
+th, td { border: 1px solid; padding: 0.25em 0.5em; text-align: left; vertical-align: top; }
+blockquote { margin: 1em 1.5em; }
+pre { white-space: pre-wrap; margin: 1em 0; }
+code { font-family: monospace; font-size: 0.9em; }
+.equation { display: flex; align-items: center; justify-content: center; gap: 2em; margin: 1em 0; }
+a[role="doc-noteref"] { text-decoration: none; }
+aside.footnote { font-size: 0.9em; }
+ul.bibliography { list-style: none; padding-left: 0; }
+ul.bibliography li { margin: 0.5em 0; padding-left: 1.5em; text-indent: -1.5em; }
+nav ol { list-style: none; }
+mtable.aligned mtd:nth-child(odd) { text-align: right; padding-right: 0; }
+mtable.aligned mtd:nth-child(even) { text-align: left; padding-left: 0; }
+=== OEBPS/titlepage.xhtml (521 bytes)
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" lang="en" xml:lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Export test</title>
+<link rel="stylesheet" type="text/css" href="style.css" />
+</head>
+<body>
+<section epub:type="titlepage" class="titlepage">
+<h1 class="title">Export test</h1>
+<p class="subtitle">Every construct</p>
+<p class="author">Ada Lovelace</p>
+<p class="date">26 October 2026</p>
+</section>
+</body>
+</html>
+=== OEBPS/chapter-1.xhtml (1091 bytes)
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" lang="en" xml:lang="en">
+<head>
+<meta charset="utf-8" />
+<title>1. Introduction</title>
+<link rel="stylesheet" type="text/css" href="style.css" />
+</head>
+<body>
+<h1 id="intro">1. Introduction</h1>
+<p>Text with <strong>bold</strong>, <em>italic</em>, <u>underlined</u>, <s>struck</s>, H<sub>2</sub>O, x<sup>2</sup>, Small Caps, <code>code</code> and <a href="https://example.com">a link</a> and <a href="https://typst.app">https://typst.app</a>. A forced<br />
+line break, “quotes” and 5 &lt; 6 &amp; 7 &gt; 3.</p>
+<h2 id="toc-1">1.1. Lists</h2>
+<ul>
+<li>one</li>
+<li>
+<p>two</p>
+<ul>
+<li>nested</li>
+</ul>
+</li>
+</ul>
+<ol>
+<li>first</li>
+<li>second</li>
+</ol>
+<ol start="4">
+<li>four</li>
+<li>five</li>
+</ol>
+<p><strong>Term</strong></p>
+<p>Its description.</p>
+<blockquote>
+<p>A quotation.</p>
+</blockquote>
+<pre><code class="language-rust">fn main() {
+    println!(&quot;hi&quot;);
+}</code></pre>
+<p>Styled text stays text.</p>
+</body>
+</html>
+=== OEBPS/chapter-2.xhtml (3953 bytes)
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" lang="en" xml:lang="en">
+<head>
+<meta charset="utf-8" />
+<title>2. Method</title>
+<link rel="stylesheet" type="text/css" href="style.css" />
+</head>
+<body>
+<h1 id="method">2. Method</h1>
+<p>See <a href="#method">Section 2</a>, <a href="#fig">Figure 1</a>, <a href="#tab">Table 1</a> and <a href="#euler">Equation 1</a>.</p>
+<div class="equation" id="euler"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><msup><mi>𝑒</mi><mrow><mi>𝑖</mi><mi>𝜋</mi></mrow></msup><mo>+</mo><mn>1</mn><mo>=</mo><mn>0</mn></math><span class="number">(1)</span></div>
+<figure id="fig">
+<img src="images/plot.svg" alt="A plot." />
+<figcaption><span class="number">Figure 1</span>: A plot.</figcaption>
+</figure>
+<figure id="tab">
+<figcaption><span class="number">Table 1</span>: A table.</figcaption>
+<table>
+<tbody>
+<tr><td>a</td><td>b</td></tr>
+</tbody>
+</table>
+</figure>
+<p>As <span class="citation" data-cites="knuth84">(Knuth, 1984)</span> shows, and <span class="citation" data-cites="doe2020">(Doe &amp; Roe, 2020, p. 4)</span> agrees. Both at once: <span class="citation" data-cites="knuth84 doe2020">(Doe &amp; Roe, 2020; Knuth, 1984)</span>.</p>
+<p>Text.<sup><a epub:type="noteref" role="doc-noteref" href="#fn-1" id="fnref-1">1</a></sup> More text.<sup><a epub:type="noteref" role="doc-noteref" href="#fn-2" id="fnref-2">2</a></sup></p>
+<figure id="red">
+<img src="images/red.png" alt="A red square" style="width: 50%" />
+<figcaption><span class="number">Figure 2</span>: A <em>red</em> square.</figcaption>
+</figure>
+<figure>
+<figcaption><span class="number">Table 2</span>: Values.</figcaption>
+<table>
+<thead>
+<tr><th>Name</th><th>Value</th></tr>
+</thead>
+<tbody>
+<tr><td>a</td><td>1</td></tr>
+</tbody>
+</table>
+</figure>
+<figure>
+<img src="images/plot.svg" alt="" style="width: 30%" />
+</figure>
+<p>An inline <img src="images/red.png" alt="" /> icon.</p>
+<pre><code class="language-py">print(1)</code></pre>
+<p>Listing 1: Code.</p>
+<table>
+<thead>
+<tr><th>A</th><th>B</th><th>C</th></tr>
+</thead>
+<tbody>
+<tr><td colspan="2">wide</td><td>x</td></tr>
+<tr><td rowspan="2">tall</td><td>1</td><td>2</td></tr>
+<tr><td>3</td><td><strong>4</strong></td></tr>
+</tbody>
+</table>
+<table>
+<tbody>
+<tr><td>one</td><td>
+<p>two</p>
+<p>paragraphs</p>
+</td></tr>
+</tbody>
+</table>
+<p>Inline <math xmlns="http://www.w3.org/1998/Math/MathML"><msup><mi>𝑎</mi><mn>2</mn></msup><mo>+</mo><msup><mi>𝑏</mi><mn>2</mn></msup><mo>=</mo><msup><mi>𝑐</mi><mn>2</mn></msup></math> and <math xmlns="http://www.w3.org/1998/Math/MathML"><mi>𝑥</mi><mo>&lt;</mo><mi>𝑦</mi></math>.</p>
+<div class="equation" id="sum"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><munderover><mo lspace="0em">∑</mo><mrow><mi>𝑘</mi><mo lspace="0em" rspace="0em">=</mo><mn>1</mn></mrow><mi>𝑛</mi></munderover><mi>𝑘</mi><mo>=</mo><mfrac><mrow><mi>𝑛</mi><mrow><mo>(</mo><mrow><mi>𝑛</mi><mo>+</mo><mn>1</mn></mrow><mo>)</mo></mrow></mrow><mn>2</mn></mfrac></math><span class="number">(2)</span></div>
+<div class="equation"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mtable class="multiline-equation aligned"><mtr><mtd><mi>𝑎</mi></mtd><mtd><mo form="infix">=</mo><mi>𝑏</mi></mtd></mtr><mtr><mtd><mi>𝑐</mi></mtd><mtd><mo form="infix">=</mo><mi>𝑑</mi></mtd></mtr></mtable></math><span class="number">(3)</span></div>
+<aside epub:type="footnote" role="doc-footnote" class="footnote" id="fn-1">
+<p>A note with <strong>bold</strong> and <span class="citation" data-cites="knuth84">(Knuth, 1984)</span>. <a href="#fnref-1" role="doc-backlink">↩</a></p>
+</aside>
+<aside epub:type="footnote" role="doc-footnote" class="footnote" id="fn-2">
+<p>Second note.</p>
+<p>With a second paragraph. <a href="#fnref-2" role="doc-backlink">↩</a></p>
+</aside>
+</body>
+</html>
+=== OEBPS/chapter-3.xhtml (532 bytes)
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" lang="en" xml:lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Bibliography</title>
+<link rel="stylesheet" type="text/css" href="style.css" />
+</head>
+<body>
+<h1 id="toc-2">Bibliography</h1>
+<ul class="bibliography">
+<li>Doe, J., &amp; Roe, R. (2020). On Layout. <em>Journal of Typesetting</em>.</li>
+<li>Knuth, D. E. (1984). <em>The TeXbook</em>. Addison-Wesley.</li>
+</ul>
+</body>
+</html>
+=== OEBPS/images/plot.svg (115 bytes)
+=== OEBPS/images/red.png (76 bytes)

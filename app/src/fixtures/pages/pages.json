@@ -1,0 +1,92 @@
+{
+  "overrides": [
+    {
+      "applied": true,
+      "detached": false,
+      "height_pt": 18.0,
+      "id": "sp1",
+      "page": 2,
+      "x_pt": 63.0,
+      "y_pt": 426.3092857142858
+    },
+    {
+      "applied": true,
+      "detached": false,
+      "height_pt": 163.671,
+      "id": "fp1",
+      "page": 2,
+      "width_pt": 326.0240000000001,
+      "x_pt": 63.0,
+      "y_pt": 54.0
+    },
+    {
+      "applied": true,
+      "detached": true,
+      "id": "cb1",
+      "page": 4,
+      "x_pt": 63.0,
+      "y_pt": 54.0
+    },
+    {
+      "applied": true,
+      "detached": false,
+      "height_pt": 70.61850000000001,
+      "id": "ts1",
+      "page": 4,
+      "width_pt": 156.747,
+      "x_pt": 146.6265,
+      "y_pt": 159.04400000000004
+    },
+    {
+      "applied": true,
+      "detached": false,
+      "id": "pb1",
+      "page": 6,
+      "x_pt": 63.0,
+      "y_pt": 54.0
+    },
+    {
+      "applied": false,
+      "detached": false,
+      "id": "pb2"
+    }
+  ],
+  "page_sizes": [
+    [
+      432.0,
+      648.0
+    ],
+    [
+      432.0,
+      648.0
+    ],
+    [
+      432.0,
+      648.0
+    ],
+    [
+      432.0,
+      648.0
+    ],
+    [
+      432.0,
+      648.0
+    ],
+    [
+      432.0,
+      648.0
+    ],
+    [
+      432.0,
+      648.0
+    ],
+    [
+      432.0,
+      648.0
+    ],
+    [
+      432.0,
+      648.0
+    ]
+  ]
+}

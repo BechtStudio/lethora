@@ -1,0 +1,192 @@
+=== mimetype (20 bytes)
+application/epub+zip
+=== META-INF/container.xml (245 bytes)
+<?xml version="1.0" encoding="UTF-8"?>
+<container version="1.0" xmlns="urn:oasis:names:tc:opendocument:xmlns:container">
+<rootfiles>
+<rootfile full-path="OEBPS/content.opf" media-type="application/oebps-package+xml" />
+</rootfiles>
+</container>
+=== OEBPS/content.opf (1682 bytes)
+<?xml version="1.0" encoding="UTF-8"?>
+<package xmlns="http://www.idpf.org/2007/opf" version="3.0" unique-identifier="pub-id" xml:lang="de-CH">
+<metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
+<dc:identifier id="pub-id">urn:uuid:1ded10a4-e11d-8825-b1c5-2efdb5ed0582</dc:identifier>
+<dc:title id="title">Odd &quot;text&quot; &amp; &lt;tags&gt;</dc:title>
+<dc:creator id="creator-1">Ada Lovelace</dc:creator>
+<meta refines="#creator-1" property="role" scheme="marc:relators">aut</meta>
+<dc:creator id="creator-2">Charles Babbage</dc:creator>
+<meta refines="#creator-2" property="role" scheme="marc:relators">aut</meta>
+<dc:language>de-CH</dc:language>
+<meta property="dcterms:modified">2026-10-26T12:00:00Z</meta>
+<meta property="schema:accessMode">textual</meta>
+<meta property="schema:accessModeSufficient">textual</meta>
+<meta property="schema:accessibilityFeature">structuralNavigation</meta>
+<meta property="schema:accessibilityFeature">tableOfContents</meta>
+<meta property="schema:accessibilityHazard">none</meta>
+<meta property="schema:accessibilitySummary">Reflowable text with headings and a table of contents.</meta>
+</metadata>
+<manifest>
+<item id="nav" href="nav.xhtml" media-type="application/xhtml+xml" properties="nav" />
+<item id="ncx" href="toc.ncx" media-type="application/x-dtbncx+xml" />
+<item id="style" href="style.css" media-type="text/css" />
+<item id="titlepage" href="titlepage.xhtml" media-type="application/xhtml+xml" />
+<item id="chapter-1" href="chapter-1.xhtml" media-type="application/xhtml+xml" />
+</manifest>
+<spine toc="ncx">
+<itemref idref="titlepage" />
+<itemref idref="nav" linear="no" />
+<itemref idref="chapter-1" />
+</spine>
+</package>
+=== OEBPS/nav.xhtml (761 bytes)
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" lang="de-CH" xml:lang="de-CH">
+<head>
+<meta charset="utf-8" />
+<title>Contents</title>
+<link rel="stylesheet" type="text/css" href="style.css" />
+</head>
+<body>
+<nav epub:type="toc" role="doc-toc" id="toc">
+<h1>Contents</h1>
+<ol>
+<li><a href="titlepage.xhtml">Odd &quot;text&quot; &amp; &lt;tags&gt;</a></li>
+</ol>
+</nav>
+<nav epub:type="landmarks" hidden="hidden">
+<h2>Landmarks</h2>
+<ol>
+<li><a epub:type="toc" href="nav.xhtml#toc">Contents</a></li>
+<li><a epub:type="titlepage" href="titlepage.xhtml">Title page</a></li>
+<li><a epub:type="bodymatter" href="chapter-1.xhtml">Start</a></li>
+</ol>
+</nav>
+</body>
+</html>
+=== OEBPS/toc.ncx (603 bytes)
+<?xml version="1.0" encoding="UTF-8"?>
+<ncx xmlns="http://www.daisy.org/z3986/2005/ncx/" version="2005-1" xml:lang="de-CH">
+<head>
+<meta name="dtb:uid" content="urn:uuid:1ded10a4-e11d-8825-b1c5-2efdb5ed0582" />
+<meta name="dtb:depth" content="1" />
+<meta name="dtb:totalPageCount" content="0" />
+<meta name="dtb:maxPageNumber" content="0" />
+</head>
+<docTitle><text>Odd &quot;text&quot; &amp; &lt;tags&gt;</text></docTitle>
+<navMap>
+<navPoint id="np-1" playOrder="1"><navLabel><text>Odd &quot;text&quot; &amp; &lt;tags&gt;</text></navLabel><content src="titlepage.xhtml" />
+</navPoint>
+</navMap>
+</ncx>
+=== OEBPS/style.css (1351 bytes)
+body { font-family: Georgia, "Times New Roman", serif; line-height: 1.5; }
+h1, h2, h3, h4, h5, h6 { line-height: 1.25; text-align: left; page-break-after: avoid; break-after: avoid; }
+.titlepage { text-align: center; margin-top: 3em; }
+.titlepage h1 { font-size: 2em; text-align: center; }
+.titlepage p { margin: 0.5em 0; }
+.titlepage .subtitle { font-size: 1.25em; font-style: italic; }
+figure { margin: 1.5em 0; text-align: center; page-break-inside: avoid; break-inside: avoid; }
+img { max-width: 100%; height: auto; }
+figcaption { font-size: 0.9em; margin: 0.5em 0; }
+table { border-collapse: collapse; margin: 1em auto; }
+th, td { border: 1px solid; padding: 0.25em 0.5em; text-align: left; vertical-align: top; }
+blockquote { margin: 1em 1.5em; }
+pre { white-space: pre-wrap; margin: 1em 0; }
+code { font-family: monospace; font-size: 0.9em; }
+.equation { display: flex; align-items: center; justify-content: center; gap: 2em; margin: 1em 0; }
+a[role="doc-noteref"] { text-decoration: none; }
+aside.footnote { font-size: 0.9em; }
+ul.bibliography { list-style: none; padding-left: 0; }
+ul.bibliography li { margin: 0.5em 0; padding-left: 1.5em; text-indent: -1.5em; }
+nav ol { list-style: none; }
+mtable.aligned mtd:nth-child(odd) { text-align: right; padding-right: 0; }
+mtable.aligned mtd:nth-child(even) { text-align: left; padding-left: 0; }
+=== OEBPS/titlepage.xhtml (545 bytes)
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" lang="de-CH" xml:lang="de-CH">
+<head>
+<meta charset="utf-8" />
+<title>Odd &quot;text&quot; &amp; &lt;tags&gt;</title>
+<link rel="stylesheet" type="text/css" href="style.css" />
+</head>
+<body>
+<section epub:type="titlepage" class="titlepage">
+<h1 class="title">Odd &quot;text&quot; &amp; &lt;tags&gt;</h1>
+<p class="author">Ada Lovelace</p>
+<p class="author">Charles Babbage</p>
+</section>
+</body>
+</html>
+=== OEBPS/chapter-1.xhtml (2163 bytes)
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" lang="de-CH" xml:lang="de-CH">
+<head>
+<meta charset="utf-8" />
+<title>Odd &quot;text&quot; &amp; &lt;tags&gt;</title>
+<link rel="stylesheet" type="text/css" href="style.css" />
+</head>
+<body>
+<p>1. Not a list, - not one either; *stars*, _under_, snake_case, [brackets], &lt;tag&gt;, $5, `ticks`, back\slash, ~tilde~, {braces}, A &amp; B, &amp;amp; an entity, 50% | pipe.</p>
+<p># not a heading<br />
+- nor an item<br />
+&gt; nor a quote</p>
+<p>Say hi!<a href="https://example.com/a b?q=&quot;x&quot;&amp;y=1">a link</a> and <a href="https://typst.app">https://typst.app</a> and <a href="mailto:ada@example.com">ada@example.com</a></p>
+<p><em> spaced </em>and <strong><em>both</em></strong>, <u>underlined</u>, <code>a`b</code>, <code>`x</code>, <sup>up</sup><sub>down</sub></p>
+<ul>
+<li>first list</li>
+</ul>
+<ul>
+<li>second list</li>
+</ul>
+<ol start="9">
+<li>
+<p>nine</p>
+<p>a second paragraph</p>
+</li>
+<li>
+<p>ten</p>
+<blockquote>
+<p>quoted in an item</p>
+</blockquote>
+</li>
+</ol>
+<pre><code>```
+fenced inside
+```</code></pre>
+<table>
+<thead>
+<tr><th colspan="2">A | B</th><th>C</th></tr>
+<tr><th colspan="3">second header</th></tr>
+</thead>
+<tbody>
+<tr><td rowspan="2">tall</td><td>
+<p>one</p>
+<p>two</p>
+</td><td></td></tr>
+<tr><td>x<br />
+y</td><td>
+<ul>
+<li>item</li>
+</ul>
+</td></tr>
+</tbody>
+</table>
+<p>Cited <span class="citation" data-cites="doe2020 roe">[@doe2020, p. 4; @roe]</span> and a reference to nowhere.<sup><a epub:type="noteref" role="doc-noteref" href="#fn-1" id="fnref-1">1</a></sup></p>
+<div class="equation"><code class="math">x &lt; y \
+  &amp; z</code></div>
+<hr />
+<aside epub:type="footnote" role="doc-footnote" class="footnote" id="fn-1">
+<p>A note<sup><a epub:type="noteref" role="doc-noteref" href="#fn-2" id="fnref-2">2</a></sup></p>
+<ul>
+<li>with a list</li>
+</ul>
+ <a href="#fnref-1" role="doc-backlink">↩</a></aside>
+<aside epub:type="footnote" role="doc-footnote" class="footnote" id="fn-2">
+<p>in a note <a href="#fnref-2" role="doc-backlink">↩</a></p>
+</aside>
+</body>
+</html>

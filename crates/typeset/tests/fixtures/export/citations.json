@@ -1,0 +1,139 @@
+{
+  "doc": {
+    "blocks": [
+      {
+        "para": [
+          {
+            "text": "As "
+          },
+          {
+            "cite": {
+              "items": [
+                {
+                  "key": "knuth84",
+                  "locator": null
+                }
+              ],
+              "text": [
+                {
+                  "text": "(Knuth, 1984)"
+                }
+              ]
+            }
+          },
+          {
+            "text": " shows, and "
+          },
+          {
+            "cite": {
+              "items": [
+                {
+                  "key": "doe2020",
+                  "locator": "p. 4"
+                }
+              ],
+              "text": [
+                {
+                  "text": "(Doe & Roe, 2020, p. 4)"
+                }
+              ]
+            }
+          },
+          {
+            "text": " agrees. Both at once: "
+          },
+          {
+            "cite": {
+              "items": [
+                {
+                  "key": "knuth84",
+                  "locator": null
+                },
+                {
+                  "key": "doe2020",
+                  "locator": null
+                }
+              ],
+              "text": [
+                {
+                  "text": "(Doe & Roe, 2020; Knuth, 1984)"
+                }
+              ]
+            }
+          },
+          {
+            "text": "."
+          }
+        ]
+      },
+      {
+        "heading": {
+          "content": [
+            {
+              "text": "Bibliography"
+            }
+          ],
+          "label": null,
+          "level": 1
+        }
+      },
+      {
+        "list": {
+          "items": [
+            [
+              {
+                "para": [
+                  {
+                    "text": "Doe, J., & Roe, R. (2020). On Layout. "
+                  },
+                  {
+                    "emph": [
+                      {
+                        "text": "Journal of Typesetting"
+                      }
+                    ]
+                  },
+                  {
+                    "text": "."
+                  }
+                ]
+              }
+            ],
+            [
+              {
+                "para": [
+                  {
+                    "text": "Knuth, D. E. (1984). "
+                  },
+                  {
+                    "emph": [
+                      {
+                        "text": "The TeXbook"
+                      }
+                    ]
+                  },
+                  {
+                    "text": ". Addison-Wesley."
+                  }
+                ]
+              }
+            ]
+          ],
+          "ordered": false,
+          "start": 1
+        }
+      }
+    ],
+    "meta": {
+      "authors": [
+        "Ada Lovelace"
+      ],
+      "date": null,
+      "lang": "en",
+      "subtitle": null,
+      "title": "Export test"
+    },
+    "resources": []
+  },
+  "warnings": []
+}

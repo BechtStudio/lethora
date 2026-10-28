@@ -1,0 +1,5 @@
+file export_images/plot.svg (115 bytes)
+file export_images/red.png (76 bytes)
+warning typst-math ×5: Kept 5 formulas as Typst source.
+warning formatting ×1: Dropped the formatting of 1 span (e.g. underline); the text stays.
+warning table-simplified ×2: Simplified 2 tables: merged cells or several paragraphs in a cell.

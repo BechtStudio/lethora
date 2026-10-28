@@ -1,0 +1,210 @@
+{
+  "doc": {
+    "blocks": [
+      {
+        "table": {
+          "columns": 3,
+          "header_rows": 1,
+          "rows": [
+            [
+              {
+                "colspan": 1,
+                "content": [
+                  {
+                    "para": [
+                      {
+                        "text": "A"
+                      }
+                    ]
+                  }
+                ],
+                "rowspan": 1
+              },
+              {
+                "colspan": 1,
+                "content": [
+                  {
+                    "para": [
+                      {
+                        "text": "B"
+                      }
+                    ]
+                  }
+                ],
+                "rowspan": 1
+              },
+              {
+                "colspan": 1,
+                "content": [
+                  {
+                    "para": [
+                      {
+                        "text": "C"
+                      }
+                    ]
+                  }
+                ],
+                "rowspan": 1
+              }
+            ],
+            [
+              {
+                "colspan": 2,
+                "content": [
+                  {
+                    "para": [
+                      {
+                        "text": "wide"
+                      }
+                    ]
+                  }
+                ],
+                "rowspan": 1
+              },
+              {
+                "colspan": 1,
+                "content": [
+                  {
+                    "para": [
+                      {
+                        "text": "x"
+                      }
+                    ]
+                  }
+                ],
+                "rowspan": 1
+              }
+            ],
+            [
+              {
+                "colspan": 1,
+                "content": [
+                  {
+                    "para": [
+                      {
+                        "text": "tall"
+                      }
+                    ]
+                  }
+                ],
+                "rowspan": 2
+              },
+              {
+                "colspan": 1,
+                "content": [
+                  {
+                    "para": [
+                      {
+                        "text": "1"
+                      }
+                    ]
+                  }
+                ],
+                "rowspan": 1
+              },
+              {
+                "colspan": 1,
+                "content": [
+                  {
+                    "para": [
+                      {
+                        "text": "2"
+                      }
+                    ]
+                  }
+                ],
+                "rowspan": 1
+              }
+            ],
+            [
+              {
+                "colspan": 1,
+                "content": [
+                  {
+                    "para": [
+                      {
+                        "text": "3"
+                      }
+                    ]
+                  }
+                ],
+                "rowspan": 1
+              },
+              {
+                "colspan": 1,
+                "content": [
+                  {
+                    "para": [
+                      {
+                        "strong": [
+                          {
+                            "text": "4"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "rowspan": 1
+              }
+            ]
+          ]
+        }
+      },
+      {
+        "table": {
+          "columns": 2,
+          "header_rows": 0,
+          "rows": [
+            [
+              {
+                "colspan": 1,
+                "content": [
+                  {
+                    "para": [
+                      {
+                        "text": "one"
+                      }
+                    ]
+                  }
+                ],
+                "rowspan": 1
+              },
+              {
+                "colspan": 1,
+                "content": [
+                  {
+                    "para": [
+                      {
+                        "text": "two"
+                      }
+                    ]
+                  },
+                  {
+                    "para": [
+                      {
+                        "text": "paragraphs"
+                      }
+                    ]
+                  }
+                ],
+                "rowspan": 1
+              }
+            ]
+          ]
+        }
+      }
+    ],
+    "meta": {
+      "authors": [
+        "Ada Lovelace"
+      ],
+      "date": null,
+      "lang": "en",
+      "subtitle": null,
+      "title": "Export test"
+    },
+    "resources": []
+  },
+  "warnings": []
+}

@@ -1,0 +1,15 @@
+# Build context of deploy/Dockerfile (the repository root): only what Cargo
+# needs to resolve the workspace and build lethora-server.
+*
+!Cargo.toml
+!Cargo.lock
+!crates/
+!vendor/
+!app/src-tauri/
+
+# Build output, generated and other files no build here reads.
+**/target/
+app/src-tauri/gen/
+app/src-tauri/icons/
+**/*.lethora/
+**/*.log
